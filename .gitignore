@@ -4,6 +4,6 @@
 
 /MRBooker/bin
 /MRBooker/obj
-/MRBooker.Data/bin/
-/MRBooker.Data/obj/
+/MRBooker.Data/bin
+/MRBooker.Data/obj
 /.vs
