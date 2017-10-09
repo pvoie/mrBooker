@@ -12,3 +12,17 @@ D:\Projects\Personal\MRBooker\MRBooker\MRBooker\obj\Debug\netcoreapp2.0\MRBooker
 D:\Projects\Personal\MRBooker\MRBooker\MRBooker\obj\Debug\netcoreapp2.0\MRBooker.AssemblyInfo.cs
 D:\Projects\Personal\MRBooker\MRBooker\MRBooker\obj\Debug\netcoreapp2.0\MRBooker.dll
 D:\Projects\Personal\MRBooker\MRBooker\MRBooker\obj\Debug\netcoreapp2.0\MRBooker.pdb
+D:\Projects\BitBucket\DevelopBranch\mrbooker\MRBooker\bin\Debug\netcoreapp2.0\MRBooker.deps.json
+D:\Projects\BitBucket\DevelopBranch\mrbooker\MRBooker\bin\Debug\netcoreapp2.0\MRBooker.runtimeconfig.json
+D:\Projects\BitBucket\DevelopBranch\mrbooker\MRBooker\bin\Debug\netcoreapp2.0\MRBooker.runtimeconfig.dev.json
+D:\Projects\BitBucket\DevelopBranch\mrbooker\MRBooker\bin\Debug\netcoreapp2.0\MRBooker.dll
+D:\Projects\BitBucket\DevelopBranch\mrbooker\MRBooker\bin\Debug\netcoreapp2.0\MRBooker.pdb
+D:\Projects\BitBucket\DevelopBranch\mrbooker\MRBooker\bin\Debug\netcoreapp2.0\MRBooker.Data.dll
+D:\Projects\BitBucket\DevelopBranch\mrbooker\MRBooker\bin\Debug\netcoreapp2.0\MRBooker.Data.pdb
+D:\Projects\BitBucket\DevelopBranch\mrbooker\MRBooker\obj\Debug\netcoreapp2.0\MRBooker.csprojResolveAssemblyReference.cache
+D:\Projects\BitBucket\DevelopBranch\mrbooker\MRBooker\obj\Debug\netcoreapp2.0\MRBooker.csproj.CoreCompileInputs.cache
+D:\Projects\BitBucket\DevelopBranch\mrbooker\MRBooker\obj\Debug\netcoreapp2.0\MRBooker.AssemblyInfoInputs.cache
+D:\Projects\BitBucket\DevelopBranch\mrbooker\MRBooker\obj\Debug\netcoreapp2.0\MRBooker.AssemblyInfo.cs
+D:\Projects\BitBucket\DevelopBranch\mrbooker\MRBooker\obj\Debug\netcoreapp2.0\MRBooker.dll
+D:\Projects\BitBucket\DevelopBranch\mrbooker\MRBooker\obj\Debug\netcoreapp2.0\MRBooker.pdb
+D:\Projects\BitBucket\DevelopBranch\mrbooker\MRBooker\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs

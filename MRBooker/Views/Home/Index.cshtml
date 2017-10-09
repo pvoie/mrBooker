@@ -1,4 +1,8 @@
-﻿@{
+﻿@using MRBooker.Data.ReservationViewModels
+
+@model ReservationViewModel
+
+@{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -26,11 +30,26 @@
         scheduler.init('main_scheduler', new Date(), "month");
 
         var events = [
-            { id: 1, text: "Meeting", start_date: "09/11/2017 14:00", end_date: "09/11/2017 17:00", type: "1" },
-            { id: 2, text: "Conference", start_date: "09/15/2017 12:00", end_date: "09/18/2017 19:00", type: "2" },
-            { id: 3, text: "Interview", start_date: "09/24/2017 09:00", end_date: "09/24/2017 10:00", type: "2" }
+            { id: 1, text: "Meeting", start_date: "10/11/2017 14:00", end_date: "10/11/2017 17:00", type: "1" },
+            { id: 2, text: "Conference", start_date: "10/15/2017 12:00", end_date: "10/18/2017 19:00", type: "2" },
+            { id: 3, text: "Interview", start_date: "10/24/2017 09:00", end_date: "10/24/2017 10:00", type: "2" }
         ];
+
+        @if (Model.Reservations == null)
+        {
+            <text>
         scheduler.parse(events, "json");
+            </text>
+        }
+        else
+        {
+            @: var arr = JSON.parse('@Html.Raw(Json.Serialize(@Model.JsonList))')
+            @: console.log(json);
+            <text>
+                console.log(JSON.parse('@Html.Raw(Model.JsonList)'));
+                scheduler.parse(json, "json");
+            </text>
+        }
 
         scheduler.config.readonly = false;
     </script>
