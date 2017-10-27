@@ -1,0 +1,28 @@
+{
+	"scssFileOutputPath": "source/css/scss/objects/",
+	"scssNamespaceConnector": ".",
+	"scssFiles": [
+		{
+			"name": "base",
+			"includedFromFile": "source/css/scss/_base.scss",
+			"scssImportPath": "scss/objects/",
+			"slushTemplate": false,
+			"template": "source/slush-templates/app.scss",
+			"importReplace": "//slush-atom-css"
+		},{
+			"name": "medium",
+			"includedFromFile": "source/css/scss/_medium.scss",
+			"scssImportPath": "scss/objects/",
+			"slushTemplate": false,
+			"template": "source/slush-templates/app.scss",
+			"importReplace": "//slush-atom-css"
+		},{
+			"name": "large",
+			"includedFromFile": "source/css/scss/_large.scss",
+			"scssImportPath": "scss/objects/",
+			"slushTemplate": false,
+			"template": "source/slush-templates/app.scss",
+			"importReplace": "//slush-atom-css"
+		}
+	]
+}

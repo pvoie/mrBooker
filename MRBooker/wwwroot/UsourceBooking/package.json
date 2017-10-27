@@ -1,0 +1,57 @@
+{
+  "name": "edition-node-gulp",
+  "description": "The gulp wrapper around patternlab-node core, providing tasks to interact with the core library and move supporting frontend assets.",
+  "version": "1.2.3",
+  "dependencies": {
+    "browser-sync": "^2.11.2",
+    "gulp": "https://github.com/gulpjs/gulp#4.0",
+    "minimist": "^1.2.0",
+    "patternlab-node": "^2.0.0",
+    "styleguidekit-assets-default": "^3.0.0",
+    "styleguidekit-mustache-default": "^3.0.0"
+  },
+  "keywords": [
+    "Pattern Lab",
+    "Atomic Web Design",
+    "Node",
+    "Gulp",
+    "Javascript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pattern-lab/edition-node-gulp.git"
+  },
+  "bugs": "https://github.com/pattern-lab/edition-node-gulp/issues",
+  "author": "Brian Muenzenmeyer",
+  "license": "MIT",
+  "engines": {
+    "node": ">=5.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.7.3",
+    "babel-preset-es2015": "^6.18.0",
+    "foundation-sites": "^6.2.3",
+    "fs-extra": "^2.0.0",
+    "gulp-babel": "^6.1.2",
+    "gulp-concat": "^2.6.0",
+    "gulp-header": "^1.8.8",
+    "gulp-merge-json": "^0.6.0",
+    "gulp-order": "^1.1.1",
+    "gulp-postcss": "^6.3.0",
+    "gulp-replace": "^0.5.4",
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^2.0.0",
+    "jquery": "^3.0.0",
+    "jsonfile": "^2.3.1"
+  },
+  "optionalDependencies": {
+    "fsevents": "*"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "iOS >= 8"
+  ],
+  "integratedVersion": "0.0.0"
+}

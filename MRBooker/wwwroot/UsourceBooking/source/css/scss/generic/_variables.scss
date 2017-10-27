@@ -1,0 +1,36 @@
+//Colors
+$color-black: #202947;
+$color-white: #fff;
+$color-gray: #666;
+$color-gray-light: #a0a0a0;
+$color-blue: #0069aa;
+$color-blue-light: #00bae6;
+$color-yellow: #D3D841;
+
+$primary-color: $color-blue-light;
+
+$color1: #ffffff; //white
+$color2: #f2f2f2; //offset gray
+$color3: #e4e4e4; //lightest gray
+$color4: #666666; //main navigation gray
+$color5: #444444; //search gray
+$color6: #000000; //black
+
+//Typography
+$font : "Work Sans", "Arial", sans-serif;
+$font-secondary : Georgia, Times, "Times New Roman", serif;
+$font-size: 24px;
+$line-height: 1.4;
+
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-black: 900;
+
+//Defaults
+$space : 1rem;
+$space-double : $space * 2;
+$space-quad : $space * 4;
+$space-half : $space / 2;

@@ -1,0 +1,20 @@
+##### Pattern Lab Output #####
+node_modules/
+public/
+integrated/
+
+patternlab.json
+config.ini
+source/_data/data.json
+source/js/_compiled/*
+source/css/_compiled/*
+.sass-cache/*
+/sass-cache
+
+##### Environment #####
+.DS_Store
+Thumbs.db
+
+##### IDE #####
+.idea/
+*.sublime-workspace

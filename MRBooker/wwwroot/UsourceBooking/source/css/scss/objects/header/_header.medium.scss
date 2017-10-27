@@ -1,0 +1,10 @@
+$object: 'header';
+.#{$object} {
+	height: 235px;
+	margin-bottom: rem-calc(75);
+	h1 {
+		bottom: 24px;
+		font-size: rem-calc(68);
+		bottom: 24px;
+	}
+}
