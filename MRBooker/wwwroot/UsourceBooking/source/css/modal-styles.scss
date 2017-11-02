@@ -1,0 +1,25 @@
+/* Modal Styles */
+
+@import "scss/generic/mixins-utils";
+@import "scss/generic/variables";
+@import "scss/generic/mixins";
+
+// @import "scss/generic/global";
+
+// @import "scss/base"; // Mobile First
+
+// @media (min-width: #{map-get($breakpoints, medium)}) { // Medium Up
+// 	@import "scss/medium";
+// }
+
+// @media (min-width: #{map-get($breakpoints, large)}) { // Large Up
+// 	@import "scss/large";
+// }
+
+// @media (min-width: #{map-get($breakpoints, xlarge)}) { // X-Large Up
+// 	@import "scss/xlarge";
+// }
+
+// @media print {
+// 	@import "scss/print";
+// }

@@ -1,0 +1,13 @@
+# git
+.git/
+.gitignore
+
+# node
+node_modules/
+
+# compiled project files
+public/
+
+# misc.
+LICENSE
+README.md

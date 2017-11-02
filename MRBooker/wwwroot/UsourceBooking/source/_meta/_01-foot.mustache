@@ -1,0 +1,44 @@
+
+		<!--DO NOT REMOVE-->
+		{{{ patternLabFoot }}}
+		
+		<!-- BEGIN: jQuery is usually loaded on it's own from AEM or, if not (for the PL), from the CDN with a local backup -->
+			<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+			<script>
+				if (typeof jQuery == 'undefined') {
+					document.write(unescape("%3Cscript src='../../js/jquery-1.11.2.min.js' type='text/javascript'%3E%3C/script%3E"));
+				}
+			</script>
+		<!-- END -->
+		
+		<script src="../../js/js-bottom.js"></script>
+
+		<!-- BEGIN: These scripts are only for use within the Pattern Library and should not be integrated on other platforms -->
+			<script src="../../js/patternlab-specific.js"></script>
+			<!-- https://github.com/pattern-lab/patternlab-node/issues/576 -->
+			<script>
+				$(document).ready(function() {
+					if(!parent) { return; }
+
+					// Manipulating the height of the iframe so that the annotations don't cover up content
+					var $modal = $(parent.document).find('#sg-modal-container'),
+						$iframeWrap = $(parent.document).find('#sg-vp-wrap');
+
+					$modal.on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(e) {
+						var newBottom = $modal.height() + parseInt($modal.css('bottom'),10);
+						newBottom = newBottom < 0 ? 0 : newBottom;
+						$iframeWrap.css('bottom', newBottom);
+					});
+
+					//Include our patternlab styles on the parent to the iframe so we can style the patterninfo pane
+					var $head = $(parent.document).find('#patternlab-head');
+					if(!$head.find('#patternlab-specific-styles').length) {
+						// Note: This one has a different path because we are assuming it will be called from the iframe itself
+						$head.append('<link rel="stylesheet" type="text/css" href="css/patternlab-specific.css" id="patternlab-specific-styles" />');
+					}
+				});
+			</script>
+		<!-- END -->
+
+	</body>
+</html>

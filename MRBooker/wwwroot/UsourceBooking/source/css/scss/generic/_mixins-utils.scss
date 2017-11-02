@@ -1,0 +1,51 @@
+// MIXINS THAT ARE NEEDED FOR VARIABLE CALCULATION
+
+//////
+// Converts a number to an integer
+//////
+@function parseInt($n) {
+	@return $n / ($n * 0 + 1);
+}
+
+//////
+// Converts a rem value to matching px value. *Any* value passed, regardless of unit, is assumed to be a rem value.
+// Dependencies: getBase, strip-unit
+//////
+@function un-rem-calc($value, $base: null) {
+	@if $base == null {
+		$base: getBase();
+	}
+
+	@if type-of($value) != 'number' {
+		@warn inspect($value) + ' was passed to un-rem-calc(), which is not a number.';
+		@return $value;
+	}
+
+	@if unit($value) != 'px' {
+		$value: strip-unit($value) * strip-unit($base) * 1px;
+	}
+
+	// Turn 0rem into 0
+	@if $value == 0px {
+		$value: 0;
+	}
+
+	@return $value;
+}
+
+//////
+// Gets the base font size (assumed to be px)
+//////
+$font-size-norm: 16 !default;
+@function getBase() {
+	// Defer to the global font size
+	$base: $font-size-norm;
+
+	// If the base font size is a %, then multiply it by 16px
+	// This is because 100% font size = 16px in most all browsers
+	@if unit($base) == '%' {
+		$base: ($base / 100%) * 16px;
+	}
+
+	@return $base;
+}

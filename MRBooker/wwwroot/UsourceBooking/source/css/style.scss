@@ -1,0 +1,71 @@
+/* Microsite Styles */
+
+@import "scss/generic/fonts";
+@import "scss/generic/mixins-utils";
+@import "scss/generic/variables";
+@import "scss/generic/mixins";
+@import "scss/generic/reset";
+
+
+// Foundation Styles
+@import "foundation"; // Populated via gulp task
+
+	@import "scss/generic/foundation-settings"; // Local overrides for foundation variables
+
+	@include foundation-global-styles;
+	@include foundation-flex-grid;
+	@include foundation-typography;
+	// @include foundation-forms;
+	@include foundation-button;
+	// @include foundation-accordion;
+	// @include foundation-accordion-menu;
+	// @include foundation-badge;
+	// @include foundation-breadcrumbs;
+	// @include foundation-button-group;
+	// @include foundation-callout;
+	// @include foundation-close-button;
+	// @include foundation-menu;
+	// @include foundation-menu-icon;
+	// @include foundation-drilldown-menu;
+	// @include foundation-dropdown;
+	// @include foundation-dropdown-menu;
+	// @include foundation-flex-video;
+	// @include foundation-label;
+	// @include foundation-media-object;
+	// @include foundation-off-canvas;
+	// @include foundation-orbit;
+	// @include foundation-pagination;
+	// @include foundation-progress-bar;
+	// @include foundation-slider;
+	// @include foundation-sticky;
+	// @include foundation-reveal;
+	// @include foundation-switch;
+	@include foundation-table;
+	// @include foundation-tabs;
+	// @include foundation-thumbnail;
+	// @include foundation-title-bar;
+	// @include foundation-tooltip;
+	// @include foundation-top-bar;
+	// @include foundation-visibility-classes; 
+	// @include foundation-float-classes;
+
+
+@import "scss/generic/global";
+
+@import "scss/base"; // Mobile First
+
+@media (min-width: #{map-get($breakpoints, medium)}) { // Medium Up
+	@import "scss/medium";
+}
+
+@media (min-width: #{map-get($breakpoints, large)}) { // Large Up
+	@import "scss/large";
+}
+
+@media (min-width: #{map-get($breakpoints, xlarge)}) { // X-Large Up
+	@import "scss/xlarge";
+}
+
+@media print {
+	@import "scss/print";
+}

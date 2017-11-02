@@ -1,0 +1,212 @@
+// This stylesheet is for styles you want to include only when displaying demo
+// styles for grids, animations, color swatches, etc.
+// These styles will not be your production CSS.
+
+@import "scss/generic/variables";
+@import "scss/generic/mixins";
+@import "scss/generic/reset";
+
+#sg-patterns {
+	box-sizing: border-box;
+	max-width: 100%;
+	padding: 0 0.5em;
+}
+
+// Stuff to support tables, etc. in the annotations area
+.sg-annotations, .sg-pattern-desc {
+	border-top: 0;
+	table {
+		border-collapse: collapse; 
+		border-spacing: 0; 
+		border: none;
+		width: 100%;
+		display: table;
+	  	margin: 0;
+	  	line-height: 1.35;
+	  	border-radius: 0;
+
+	  	thead {
+
+	  		border: 1px solid #cacaca;
+	  		th {
+	  			background: #8a8a8a;
+				color: #fefefe;
+	  		}
+	  	}
+
+	  	tbody {
+	  		border: 1px solid #d5d5d5;
+	  		font-family: "BrixSans", Helvetica, Arial, sans-serif;
+	  	}
+
+		>tr, >thead tr, >tbody {
+			&.reverse--stripe {
+				tr {
+					background: #e6e6e6;
+					&:nth-of-type(even) {
+						background: #fefefe;
+					}
+				}
+			}
+			tr {
+				background: #fefefe;
+				&:nth-of-type(even) {
+					background: #e6e6e6;
+				}
+			}
+		}
+		th, td {
+			padding: 0.5rem;
+			text-align: left;
+			ul {
+				margin: 0;
+				list-style-type: none;
+				font-size: inherit;
+				li {
+					margin: 0;
+				}
+			}
+		}
+	}
+	.sg-annotations-list {
+		p {
+			margin: 10px 0 10px 0;
+		}
+		>li.active {
+			background: rgba(75,33,193,0.5);
+		}
+	}
+	.sg-annotations-list-title {
+		&:after {
+			content: ":";
+		}
+	}
+}
+.sg-tabs-list.sg-tabs-list {
+	a {
+		background-color: transparentize(#f5f4f4, 0.8);
+	}
+	.sg-tab-title-active {
+		a {
+			background-color: #f5f4f4;
+		}
+	}
+}
+.sg-pattern-extra-info {
+	width: 60%;
+}
+.sg-pattern-extra-code {
+	width: 40%;
+}
+
+
+.sg-colors {
+	display: flex;
+	flex-wrap: wrap;
+	list-style: none !important;
+	padding: 0 !important;
+	margin: 0 !important;
+
+	li {
+		flex: auto;
+		padding: 0.3em;
+		margin: 0 0.5em 0.5em 0;
+		min-width: 5em;
+		max-width: 14em;
+		border: 1px solid #ddd;
+		border-radius: 8px;
+	    box-shadow: 1px 1px 3px 0px #ddd;
+
+	}
+
+	.sg-swatch {
+		display: block;
+		height: 4em;
+		margin-bottom: 0.3em;
+		border-radius: 5px;
+	    box-shadow: inset 1px 1px 3px 0px #666;
+
+		&.sg-color-1 {
+			background: $color-white;
+			+ .sg-label {
+
+				&:before {
+					display: block;
+					content: 'HEX: #{$color-white}';
+				}
+				&:after {
+					display: block;
+					content: 'SASS: $color-white';
+				}
+			}
+		}
+		&.sg-color-2 {
+			background: $color-blue-light;
+			+ .sg-label {
+
+				&:before {
+					display: block;
+					content: 'HEX: #{$color-blue-light}';
+				}
+				&:after {
+					display: block;
+					content: 'SASS: $color-blue-light';
+				}
+			}
+		}
+		&.sg-color-3 {
+			background: $color-blue;
+			+ .sg-label {
+
+				&:before {
+					display: block;
+					content: 'HEX: #{$color-blue}';
+				}
+				&:after {
+					display: block;
+					content: 'SASS: $color-blue';
+				}
+			}
+		}
+		&.sg-color-4 {
+			background: $color-black;
+			+ .sg-label {
+
+				&:before {
+					display: block;
+					content: 'HEX: #{$color-black}';
+				}
+				&:after {
+					display: block;
+					content: 'SASS: $color-black';
+				}
+			}
+		}
+		&.sg-color-5 {
+			background: $color-yellow;
+			+ .sg-label {
+
+				&:before {
+					display: block;
+					content: 'HEX: #{$color-yellow}';
+				}
+				&:after {
+					display: block;
+					content: 'SASS: $color-yellow';
+				}
+			}
+		}
+		&.sg-color-6 {
+			background: $color6;
+		}
+	}
+
+	.sg-label {
+		font-size: 90%;
+		line-height: 1;
+	}
+}
+
+.sg-font-secondary {
+	font-family: $font-secondary;
+}

@@ -1,0 +1,17 @@
+/////////
+// Example Structure using BEM principle
+/////////
+
+// $object: 'example';
+// .#{$object} {
+// 	&__element {
+
+// 	}
+
+// 	&--modifier {
+
+// 		.#{$object}__nested-element {
+
+// 		}
+// 	}
+// }

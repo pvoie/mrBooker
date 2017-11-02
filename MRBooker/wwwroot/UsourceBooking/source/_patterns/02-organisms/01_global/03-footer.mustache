@@ -1,0 +1,30 @@
+{{# footer }}
+<footer class="footer">
+	<nav class="row text-center medium-text-left">
+		
+		{{# col1 }}
+		<div class="column footer__column1 small-12 medium-6 ">
+			<ul class="row">
+				{{# links }}
+				<li class="column align-top small-12 medium-expand"><a href="{{url}}">{{title}}</a></li>
+				{{/ links }}
+			</ul>
+		</div>
+		{{/ col1 }}
+		<div class="column footer__column2 small-12 medium-6">
+			<ul class="row">
+				{{# col2.links }}
+				<li class="column align-top small-12 medium-expand"><a href="{{url}}">{{title}}</a></li>
+				{{/ col2.links }}
+			</ul>
+			<div class="row text-left">
+				<div class="column">
+					{{# copyright }}
+						<p>{{{.}}}</p>
+					{{/ copyright }}
+				</div>
+			</div>
+		</div>
+	</nav>
+</footer>
+{{/ footer }}

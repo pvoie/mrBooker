@@ -1,0 +1,109 @@
+2017-09-25 12:34:37.602 +03:00 [Information] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager: User profile is available. Using 'C:\Users\tibi.teglas\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2017-09-25 12:34:38.580 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/1.1 GET http://localhost:44379/  
+2017-09-25 12:34:38.908 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method MRBooker.Controllers.HomeController.Index (MRBooker) with arguments ((null)) - ModelState is Valid
+2017-09-25 12:34:41.610 +03:00 [Information] Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.ViewResultExecutor: Executing ViewResult, running view at path /Views/Home/Index.cshtml.
+2017-09-25 12:34:42.614 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action MRBooker.Controllers.HomeController.Index (MRBooker) in 3712.2755ms
+2017-09-25 12:34:42.636 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 4050.77ms 200 text/html; charset=utf-8
+2017-09-25 12:34:42.642 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/1.1 GET http://localhost:44379/lib/scheduler/codebase/dhtmlxscheduler.css  
+2017-09-25 12:34:42.644 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/1.1 GET http://localhost:44379/lib/jquery/dist/jquery.js  
+2017-09-25 12:34:42.667 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/1.1 GET http://localhost:44379/lib/scheduler/codebase/dhtmlxscheduler.js  
+2017-09-25 12:34:42.711 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/1.1 GET http://localhost:44379/lib/bootstrap/dist/js/bootstrap.js  
+2017-09-25 12:34:42.733 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/1.1 GET http://localhost:44379/lib/popper.js/dist/popper.js  
+2017-09-25 12:34:42.769 +03:00 [Information] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware: The file /lib/scheduler/codebase/dhtmlxscheduler.css was not modified
+2017-09-25 12:34:42.772 +03:00 [Information] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware: The file /lib/jquery/dist/jquery.js was not modified
+2017-09-25 12:34:42.797 +03:00 [Information] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware: The file /lib/popper.js/dist/popper.js was not modified
+2017-09-25 12:34:42.803 +03:00 [Information] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware: The file /lib/bootstrap/dist/js/bootstrap.js was not modified
+2017-09-25 12:34:42.807 +03:00 [Information] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware: The file /lib/scheduler/codebase/dhtmlxscheduler.js was not modified
+2017-09-25 12:34:42.831 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 181.1598ms 304 application/javascript
+2017-09-25 12:34:42.837 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 170.5929ms 304 application/javascript
+2017-09-25 12:34:42.842 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 170.5933ms 304 text/css
+2017-09-25 12:34:42.865 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 170.5929ms 304 application/javascript
+2017-09-25 12:34:42.889 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 170.5941ms 304 application/javascript
+2017-09-25 12:34:42.948 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/1.1 GET http://localhost:44379/lib/bootstrap/dist/css/bootstrap.css  
+2017-09-25 12:34:42.975 +03:00 [Information] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware: The file /lib/bootstrap/dist/css/bootstrap.css was not modified
+2017-09-25 12:34:43.003 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 32.1268ms 304 text/css
+2017-09-25 12:34:43.095 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/1.1 GET http://localhost:44379/lib/scheduler/codebase/imgs_dhx_terrace/arrow_left.png  
+2017-09-25 12:34:43.097 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/1.1 GET http://localhost:44379/lib/scheduler/codebase/imgs_dhx_terrace/arrow_right.png  
+2017-09-25 12:34:43.105 +03:00 [Information] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware: The file /lib/scheduler/codebase/imgs_dhx_terrace/arrow_left.png was not modified
+2017-09-25 12:34:43.127 +03:00 [Information] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware: The file /lib/scheduler/codebase/imgs_dhx_terrace/arrow_right.png was not modified
+2017-09-25 12:34:43.176 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 59.8771ms 304 image/png
+2017-09-25 12:34:43.199 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 82.0083ms 304 image/png
+2017-09-25 12:34:46.876 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/1.1 GET http://localhost:44379/lib/scheduler/codebase/imgs_dhx_terrace/databg.png  
+2017-09-25 12:34:46.879 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/1.1 GET http://localhost:44379/lib/scheduler/codebase/imgs_dhx_terrace/databg_now.png  
+2017-09-25 12:34:46.902 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/1.1 GET http://localhost:44379/lib/scheduler/codebase/imgs_dhx_terrace/clock_big.gif  
+2017-09-25 12:34:46.908 +03:00 [Information] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware: The file /lib/scheduler/codebase/imgs_dhx_terrace/databg.png was not modified
+2017-09-25 12:34:46.954 +03:00 [Information] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware: The file /lib/scheduler/codebase/imgs_dhx_terrace/clock_big.gif was not modified
+2017-09-25 12:34:47.002 +03:00 [Information] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware: The file /lib/scheduler/codebase/imgs_dhx_terrace/databg_now.png was not modified
+2017-09-25 12:34:47.008 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 126.5156ms 304 image/png
+2017-09-25 12:34:47.058 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 181.6607ms 304 image/png
+2017-09-25 12:34:47.088 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 206.7811ms 304 image/gif
+2017-09-25 12:34:50.713 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/1.1 GET http://localhost:44379/lib/scheduler/codebase/imgs_dhx_terrace/resizing.png  
+2017-09-25 12:34:50.717 +03:00 [Information] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware: The file /lib/scheduler/codebase/imgs_dhx_terrace/resizing.png was not modified
+2017-09-25 12:34:50.723 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 9.4129ms 304 image/png
+2017-09-25 12:34:51.104 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/1.1 GET http://localhost:44379/lib/scheduler/codebase/imgs_dhx_terrace/controls.png  
+2017-09-25 12:34:51.110 +03:00 [Information] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware: Sending file. Request path: '/lib/scheduler/codebase/imgs_dhx_terrace/controls.png'. Physical path: 'D:\Projects\Personal\MRBooker\MRBooker\MRBooker\wwwroot\lib\scheduler\codebase\imgs_dhx_terrace\controls.png'
+2017-09-25 12:34:51.119 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 14.5412ms 200 image/png
+2017-09-25 12:35:20.023 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/1.1 GET http://localhost:44379/lib/scheduler/codebase/imgs/controls.gif  
+2017-09-25 12:35:20.029 +03:00 [Information] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware: The file /lib/scheduler/codebase/imgs/controls.gif was not modified
+2017-09-25 12:35:20.033 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 10.2415ms 304 image/gif
+2017-09-25 12:36:57.469 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/1.1 GET http://localhost:44379/Account/Login  
+2017-09-25 12:36:57.537 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method MRBooker.Controllers.AccountController.Login (MRBooker) with arguments () - ModelState is Valid
+2017-09-25 12:36:57.545 +03:00 [Information] Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler: AuthenticationScheme: Identity.External signed out.
+2017-09-25 12:36:58.020 +03:00 [Information] Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.ViewResultExecutor: Executing ViewResult, running view at path /Views/Account/Login.cshtml.
+2017-09-25 12:36:58.218 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action MRBooker.Controllers.AccountController.Login (MRBooker) in 703.5198ms
+2017-09-25 12:36:58.223 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 754.2472ms 200 text/html; charset=utf-8
+2017-09-25 12:36:58.236 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/1.1 GET http://localhost:44379/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js  
+2017-09-25 12:36:58.239 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/1.1 GET http://localhost:44379/lib/jquery-validation/dist/jquery.validate.js  
+2017-09-25 12:36:58.264 +03:00 [Information] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware: The file /lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js was not modified
+2017-09-25 12:36:58.286 +03:00 [Information] Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware: The file /lib/jquery-validation/dist/jquery.validate.js was not modified
+2017-09-25 12:36:58.306 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 54.2995ms 304 application/javascript
+2017-09-25 12:36:58.329 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 54.2352ms 304 application/javascript
+2017-09-25 12:37:03.907 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/1.1 GET http://localhost:44379/  
+2017-09-25 12:37:03.913 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method MRBooker.Controllers.HomeController.Index (MRBooker) with arguments ((null)) - ModelState is Valid
+2017-09-25 12:37:03.917 +03:00 [Information] Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.ViewResultExecutor: Executing ViewResult, running view at path /Views/Home/Index.cshtml.
+2017-09-25 12:37:03.922 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action MRBooker.Controllers.HomeController.Index (MRBooker) in 9.1678ms
+2017-09-25 12:37:03.927 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 21.3113ms 200 text/html; charset=utf-8
+2017-09-25 12:37:18.193 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/1.1 GET http://localhost:44379/Account/Login  
+2017-09-25 12:37:18.198 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method MRBooker.Controllers.AccountController.Login (MRBooker) with arguments () - ModelState is Valid
+2017-09-25 12:37:18.202 +03:00 [Information] Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler: AuthenticationScheme: Identity.External signed out.
+2017-09-25 12:37:18.206 +03:00 [Information] Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.ViewResultExecutor: Executing ViewResult, running view at path /Views/Account/Login.cshtml.
+2017-09-25 12:37:18.217 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action MRBooker.Controllers.AccountController.Login (MRBooker) in 18.5626ms
+2017-09-25 12:37:18.225 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 34.2491ms 200 text/html; charset=utf-8
+2017-09-25 12:37:20.355 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/1.1 GET http://localhost:44379/  
+2017-09-25 12:37:20.359 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method MRBooker.Controllers.HomeController.Index (MRBooker) with arguments ((null)) - ModelState is Valid
+2017-09-25 12:37:20.362 +03:00 [Information] Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.ViewResultExecutor: Executing ViewResult, running view at path /Views/Home/Index.cshtml.
+2017-09-25 12:37:20.367 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action MRBooker.Controllers.HomeController.Index (MRBooker) in 7.9054ms
+2017-09-25 12:37:20.372 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 17.0902ms 200 text/html; charset=utf-8
+2017-09-25 12:37:30.356 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/1.1 GET http://localhost:44379/Account/Login  
+2017-09-25 12:37:30.363 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method MRBooker.Controllers.AccountController.Login (MRBooker) with arguments () - ModelState is Valid
+2017-09-25 12:37:30.367 +03:00 [Information] Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler: AuthenticationScheme: Identity.External signed out.
+2017-09-25 12:37:30.372 +03:00 [Information] Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.ViewResultExecutor: Executing ViewResult, running view at path /Views/Account/Login.cshtml.
+2017-09-25 12:37:30.379 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action MRBooker.Controllers.AccountController.Login (MRBooker) in 16.3381ms
+2017-09-25 12:37:30.385 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 29.2281ms 200 text/html; charset=utf-8
+2017-09-25 12:37:34.111 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/1.1 POST http://localhost:44379/Account/Login application/x-www-form-urlencoded 245
+2017-09-25 12:37:34.156 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method MRBooker.Controllers.AccountController.Login (MRBooker) with arguments (MRBooker.Data.AccountViewModels.LoginViewModel, ) - ModelState is Valid
+2017-09-25 12:37:34.324 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.0.0-rtm-26452 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2017-09-25 12:37:34.642 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (47ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[Email], [u].[EmailConfirmed], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UserName]
+FROM [AspNetUsers] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0
+2017-09-25 12:37:34.746 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (2ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='Text', CommandTimeout='30']
+SELECT [uc].[Id], [uc].[ClaimType], [uc].[ClaimValue], [uc].[UserId]
+FROM [AspNetUserClaims] AS [uc]
+WHERE [uc].[UserId] = @__user_Id_0
+2017-09-25 12:37:34.778 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='Text', CommandTimeout='30']
+SELECT [role].[Name]
+FROM [AspNetUserRoles] AS [userRole]
+INNER JOIN [AspNetRoles] AS [role] ON [userRole].[RoleId] = [role].[Id]
+WHERE [userRole].[UserId] = @__userId_0
+2017-09-25 12:37:34.786 +03:00 [Information] Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler: AuthenticationScheme: Identity.Application signed in.
+2017-09-25 12:37:34.790 +03:00 [Information] MRBooker.Controllers.AccountController: User logged in.
+2017-09-25 12:37:34.795 +03:00 [Information] Microsoft.AspNetCore.Mvc.RedirectToActionResult: Executing RedirectResult, redirecting to /.
+2017-09-25 12:37:34.800 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action MRBooker.Controllers.AccountController.Login (MRBooker) in 675.4731ms
+2017-09-25 12:37:34.805 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 694.4601ms 302 
+2017-09-25 12:37:34.830 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/1.1 GET http://localhost:44379/  
+2017-09-25 12:37:34.838 +03:00 [Information] Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler: AuthenticationScheme: Identity.Application was successfully authenticated.
+2017-09-25 12:37:34.841 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method MRBooker.Controllers.HomeController.Index (MRBooker) with arguments ((null)) - ModelState is Valid
+2017-09-25 12:37:34.845 +03:00 [Information] Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.ViewResultExecutor: Executing ViewResult, running view at path /Views/Home/Index.cshtml.
+2017-09-25 12:37:34.861 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action MRBooker.Controllers.HomeController.Index (MRBooker) in 15.6643ms
+2017-09-25 12:37:34.876 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 57.5981ms 200 text/html; charset=utf-8
