@@ -27,5 +27,11 @@ namespace MRBooker.Data.Models.Entities
         public string UserId { get; set; }
 
         public virtual ApplicationUser User { get; set; }
+
+        [ForeignKey("Room")]
+        [Required]
+        public long RoomId { get; set; }
+
+        public virtual Room Room { get; set; }
     }
 }

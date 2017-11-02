@@ -18,6 +18,7 @@ namespace MRBooker.Data.Mappers
             entityBuilder.Property(t => t.Start).IsRequired();
             entityBuilder.Property(t => t.Status).IsRequired().HasMaxLength(50);
             entityBuilder.HasOne(e => e.User).WithMany(e => e.Reservations).HasForeignKey(e => e.UserId).IsRequired().OnDelete(DeleteBehavior.SetNull);
+            entityBuilder.HasOne(t => t.Room).WithMany(t => t.Reservations).HasForeignKey(t => t.RoomId).IsRequired().OnDelete(DeleteBehavior.SetNull);
         }
     }
 }
