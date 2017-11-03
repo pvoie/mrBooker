@@ -36,9 +36,9 @@ namespace MRBooker.Controllers
                     var schedulerEvent = new SchedulerEventModel
                     {
                         Id = item.Id,
-                        Text = item.Description,
-                        StartDate = item.Start.ToString("MM/dd/yyyy HH:mm"),
-                        EndDate = item.End.ToString("MM/dd/yyyy HH:mm")
+                        Description = item.Description,
+                        StartDate = item.Start,
+                        EndDate = item.End
                     };
 
                     model.Reservations.Add(schedulerEvent.ToJson());
