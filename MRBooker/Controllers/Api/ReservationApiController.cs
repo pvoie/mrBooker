@@ -49,6 +49,8 @@ namespace MRBooker.Controllers.Api
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var reservation = _reservationRepository.Get(id);
+            _reservationRepository.Delete(reservation);
         }
     }
 }
