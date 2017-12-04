@@ -25,7 +25,6 @@ namespace MRBooker.Controllers
         public IActionResult Index()
         {
             var model = new ReservationViewModel();
-
             if (User.Identity.IsAuthenticated)
             {
                 var user = _userManager.GetUserWithDataByName(User.Identity.Name);

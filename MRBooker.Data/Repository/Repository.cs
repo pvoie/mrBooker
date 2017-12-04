@@ -33,7 +33,7 @@ namespace MRBooker.Data.Repository
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException("Insert failed: entity");
             }
             entities.Add(entity);
             _dbContext.SaveChanges();
@@ -43,7 +43,7 @@ namespace MRBooker.Data.Repository
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException("Update failed: entity");
             }
             _dbContext.SaveChanges();
         }
@@ -52,7 +52,7 @@ namespace MRBooker.Data.Repository
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException("Delete failed: entity");
             }
             entities.Remove(entity);
             _dbContext.SaveChanges();

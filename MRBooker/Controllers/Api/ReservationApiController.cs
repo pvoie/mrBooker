@@ -8,6 +8,7 @@ using MRBooker.Data.Models.Entities;
 using MRBooker.Data.Repository;
 using MRBooker.Data.SchedulerModels;
 using MRBooker.Extensions.MethodMappers;
+using Microsoft.Extensions.Logging;
 
 namespace MRBooker.Controllers.Api
 {
@@ -16,9 +17,12 @@ namespace MRBooker.Controllers.Api
     public class ReservationApiController : Controller
     {
         private readonly IRepository<Reservation> _reservationRepository;
+        private readonly ILogger<ReservationApiController> _logger;
 
-        public ReservationApiController(IRepository<Reservation> reservationRepository)
+        public ReservationApiController(IRepository<Reservation> reservationRepository,
+            ILogger<ReservationApiController> logger)
         {
+            _logger = logger;
             _reservationRepository = reservationRepository;
         }
 
