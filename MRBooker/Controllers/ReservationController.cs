@@ -3,24 +3,31 @@ using Microsoft.AspNetCore.Mvc;
 using MRBooker.Data.Repository;
 using MRBooker.Data.Models.Entities;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MRBooker.Wrappers;
 using Microsoft.Extensions.Logging;
+using MRBooker.Data.ReservationViewModels;
 
 namespace MRBooker.Controllers
 {
     public class ReservationController : Controller
     {
         private IRepository<Reservation> _reservationRepo;
+        private IRepository<Room> _roomRepo;
         private readonly ApplicationUserManager<ApplicationUser> _userManager;
         private readonly ILogger<ReservationController> _logger;
 
         public ReservationController(IRepository<Reservation> reservationRepo,
+            IRepository<Room> roomRepo,
             ApplicationUserManager<ApplicationUser> userManager,
             ILogger<ReservationController> logger)
         {
             _logger = logger;
             _userManager = userManager;
             _reservationRepo = reservationRepo;
+            _roomRepo = roomRepo;
         }
 
         // GET: Reservation
@@ -29,6 +36,9 @@ namespace MRBooker.Controllers
             var test = _userManager.GetUserWithDataByName(User.Identity.Name);
 
             _logger.LogInformation($"User {test.UserName} has been retrieved with reservations {test.Reservations}");
+
+            var rooms = _roomRepo.GetAll();
+            ViewBag.ListOfRooms = rooms;
 
             return View("Add");
         }
@@ -63,9 +73,9 @@ namespace MRBooker.Controllers
                     Status = Convert.ToString(collection["Status"]),
                     Title = Convert.ToString(collection["Title"]),
                     User = _userManager.GetUserAsync(User).Result,
-                    UserId = _userManager.GetUserId(User)
+                    UserId = _userManager.GetUserId(User),
+                    RoomId = Convert.ToInt64(collection["RoomId"])
                 };
-
                 _reservationRepo.Insert(reservation);
 
                 return RedirectToAction(nameof(Index));
