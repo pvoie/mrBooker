@@ -36,7 +36,7 @@ namespace MRBooker.Data.Repository
                 throw new ArgumentNullException("Insert failed: entity");
             }
             entities.Add(entity);
-            _dbContext.SaveChanges();
+            _dbContext.Entry(entity).State = EntityState.Added;
         }
 
         public void Update(T entity)
@@ -45,7 +45,7 @@ namespace MRBooker.Data.Repository
             {
                 throw new ArgumentNullException("Update failed: entity");
             }
-            _dbContext.SaveChanges();
+            _dbContext.Entry(entity).State = EntityState.Modified;
         }
 
         public void Delete(T entity)
@@ -55,7 +55,7 @@ namespace MRBooker.Data.Repository
                 throw new ArgumentNullException("Delete failed: entity");
             }
             entities.Remove(entity);
-            _dbContext.SaveChanges();
+            _dbContext.Entry(entity).State = EntityState.Deleted;
         }
     }
 }

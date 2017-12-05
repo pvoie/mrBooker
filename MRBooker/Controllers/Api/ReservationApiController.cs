@@ -6,7 +6,8 @@ using MRBooker.Data.Repository;
 using MRBooker.Data.SchedulerModels;
 using MRBooker.Extensions.MethodMappers;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+using MRBooker.Data.UoW;
+
 namespace MRBooker.Controllers.Api
 {
     [Produces("application/json")]
@@ -14,12 +15,14 @@ namespace MRBooker.Controllers.Api
     public class ReservationApiController : Controller
     {
         private readonly IRepository<Reservation> _reservationRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<ReservationApiController> _logger;
 
-        public ReservationApiController(IRepository<Reservation> reservationRepository,
+        public ReservationApiController(IUnitOfWork unitOfWork, IRepository<Reservation> reservationRepository,
             ILogger<ReservationApiController> logger)
         {
             _logger = logger;
+            _unitOfWork = unitOfWork;
             _reservationRepository = reservationRepository;
         }
 
@@ -31,8 +34,9 @@ namespace MRBooker.Controllers.Api
             {
                 data = new List<SchedulerEventModel>()
             };
-            
-            var dbData = _reservationRepository.GetAll();
+
+            var dbData = _unitOfWork.ReservationRepository.GetAll();
+
             foreach (var res in dbData)
             {
                 data.data.Add(res.ToSchedulerModel());
@@ -45,7 +49,7 @@ namespace MRBooker.Controllers.Api
         [HttpGet("{id}", Name = "Get")]
         public Reservation Get(long id)
         {
-            return _reservationRepository.Get(id);
+            return _unitOfWork.ReservationRepository.Get(id);
         }
 
         // POST: api/ReservationApi
@@ -53,15 +57,15 @@ namespace MRBooker.Controllers.Api
         //[ValidateAntiForgeryToken]
         public void Post([FromBody]SchedulerEventModel model)
         {
-            //var newReservation = new Reservation();
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var reservation = _reservationRepository.Get(id);
-            _reservationRepository.Delete(reservation);
+            var reservation = _unitOfWork.ReservationRepository.Get(id);
+            _unitOfWork.ReservationRepository.Delete(reservation);
+            _unitOfWork.Save();
         }
     }
 }
