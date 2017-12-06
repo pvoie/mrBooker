@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
+using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using MRBooker.Data.Models.Entities;
 using MRBooker.Data.Repository;
@@ -31,9 +28,21 @@ namespace MRBooker.Controllers.Api
 
         // GET: api/ReservationApi
         [HttpGet]
-        public IEnumerable<Reservation> Get()
+        public IActionResult Get()
         {
-            return _unitOfWork.ReservationRepository.GetAll();
+            var data = new SchdulerDataViewModel
+            {
+                data = new List<SchedulerEventModel>()
+            };
+
+            var dbData = _unitOfWork.ReservationRepository.GetAll();
+
+            foreach (var res in dbData)
+            {
+                data.data.Add(res.ToSchedulerModel());
+            }
+
+            return Json(data);
         }
 
         // GET: api/ReservationApi/5
@@ -42,17 +51,14 @@ namespace MRBooker.Controllers.Api
         {
             return _unitOfWork.ReservationRepository.Get(id);
         }
-        
+
         // POST: api/ReservationApi
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public void Post([FromBody]SchedulerEventModel model)
         {
-            var reservation = model.ToReservationModel();
-            _unitOfWork.ReservationRepository.Insert(reservation);
-            _unitOfWork.Save();
         }
-        
+
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)

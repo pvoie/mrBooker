@@ -11,14 +11,7 @@ namespace MRBooker.Data.ReservationViewModels
 
         public string ToJsonList()
         {
-            if (Reservations == null)
-            {
-                return string.Empty;
-            }
-            else
-            {
-                return JsonConvert.SerializeObject(Reservations);
-            }
+            return Reservations == null ? string.Empty : JsonConvert.SerializeObject(Reservations, Formatting.Indented);
         }
     }
 }

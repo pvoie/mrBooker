@@ -3,7 +3,7 @@ using MRBooker.Data.SchedulerModels;
 
 namespace MRBooker.Extensions.MethodMappers
 {
-    public static class MapToReservationExtensionMethod
+    public static class MapToReservation
     {
         public static Reservation ToReservationModel(this SchedulerEventModel model)
         {

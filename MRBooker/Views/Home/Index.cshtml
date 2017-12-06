@@ -27,34 +27,36 @@
 
 @section Scripts {
     <script>
+        scheduler.config.xml_date = "%d/%m/%Y %h:%i:%s";
+        scheduler.config.readonly = false;
         scheduler.init('main_scheduler', new Date(), "month");
 
-        var events = [
-            { id: 1, text: "Meeting", start_date: "10/11/2017 14:00", end_date: "10/11/2017 17:00", type: "1" },
-            { id: 2, text: "Conference", start_date: "10/15/2017 12:00", end_date: "10/18/2017 19:00", type: "2" },
-            { id: 3, text: "Interview", start_date: "10/24/2017 09:00", end_date: "10/24/2017 10:00", type: "2" }
-        ];
+        scheduler.load("api/reservationApi", "json");
 
-        @if (Model.Reservations == null)
-        {
-            <text>
-        scheduler.parse(events, "json");
-            </text>
-        }
-        else
-        {
-            @: var arr = JSON.parse('@Html.Raw(Json.Serialize(@Model.JsonList))')
-            @: console.log(json);
-            <text>
-                console.log(JSON.parse('@Html.Raw(Model.JsonList)'));
-                scheduler.parse(json, "json");
-            </text>
-        }
+        scheduler.attachEvent("onEventSave",
+            function (id, ev, is_new) {
+                $.ajax({
+                    url: "api/reservationApi",
+                    type: "POST",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(ev),
+                    success: function () {
+                        console.log('success !' + ev);
+                        return true;
+                    },
+                    error: function () {
+                        console.log('error !' + ev);
+                        return false;
+                    }
+                });
+            });
 
-        scheduler.config.readonly = false;
     </script>
 
 }
+@*<environment include="Development">
+        <script src="~/js/scheduler.js.js" asp-append-version="true"></script>
+    </environment>*@
 
 @*<style type="text/css" media="screen">
         html, body {
