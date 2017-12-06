@@ -1,4 +1,5 @@
-﻿using MRBooker.Data.Models.Entities;
+﻿using System;
+using MRBooker.Data.Models.Entities;
 using MRBooker.Data.SchedulerModels;
 
 namespace MRBooker.Extensions.MethodMappers
@@ -14,8 +15,8 @@ namespace MRBooker.Extensions.MethodMappers
                 Title = model.Title,
                 Description = model.Description,
                 Status = model.Status,
-                Start = model.StartDate,
-                End = model.EndDate,
+                Start = Convert.ToDateTime(model.StartDate),
+                End = Convert.ToDateTime(model.EndDate),
                 Room = GetRoomContent(model)
             };
 

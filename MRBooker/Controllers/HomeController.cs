@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using MRBooker.Data;
 using MRBooker.Wrappers;
@@ -6,7 +7,10 @@ using MRBooker.Data.Models.Entities;
 using Microsoft.Extensions.Logging;
 using MRBooker.Data.ReservationViewModels;
 using System.Collections.Generic;
+using System.Globalization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MRBooker.Data.SchedulerModels;
+using MRBooker.Data.UoW;
 
 namespace MRBooker.Controllers
 {
@@ -14,10 +18,12 @@ namespace MRBooker.Controllers
     {
         private readonly ApplicationUserManager<ApplicationUser> _userManager;
         private readonly ILogger<HomeController> _logger;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public HomeController(ApplicationUserManager<ApplicationUser> userManager,
+        public HomeController(IUnitOfWork unitOfWork,ApplicationUserManager<ApplicationUser> userManager,
             ILogger<HomeController> logger)
         {
+            _unitOfWork = unitOfWork;
             _userManager = userManager;
             _logger = logger;
         }
@@ -25,24 +31,12 @@ namespace MRBooker.Controllers
         public IActionResult Index()
         {
             var model = new ReservationViewModel();
+
+            var rooms = _unitOfWork.RoomRepository.GetAll();
+            model.Rooms = new SelectList(rooms, "Id", "Name");
             if (User.Identity.IsAuthenticated)
             {
-                var user = _userManager.GetUserWithDataByName(User.Identity.Name);
-                model.Reservations = new List<string>();
-
-                foreach (var item in user.Reservations)
-                {
-                    var schedulerEvent = new SchedulerEventModel
-                    {
-                        Id = item.Id,
-                        Description = item.Description,
-                        StartDate = item.Start,
-                        EndDate = item.End
-                    };
-
-                    model.Reservations.Add(schedulerEvent.ToJson());
-                }
-                model.JsonList = model.ToJsonList();
+                
             }
 
             return View(model);

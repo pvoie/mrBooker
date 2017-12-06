@@ -8,21 +8,30 @@
 }
 
 <div class="row">
-    <div class="col-md-6">
-        <div id="main_scheduler" class="dhx_cal_container" style="width:100%; height:100%; padding:100%;">
-            <div class="dhx_cal_navline">
-                <div class="dhx_cal_prev_button">&nbsp;</div>
-                <div class="dhx_cal_next_button">&nbsp;</div>
-                <div class="dhx_cal_today_button"></div>
-                <div class="dhx_cal_date"></div>
-                <div class="dhx_cal_tab" name="day_tab" style="right:204px;"></div>
-                <div class="dhx_cal_tab" name="week_tab" style="right:140px;"></div>
-                <div class="dhx_cal_tab" name="month_tab" style="right:76px;"></div>
+    <div class="col-md-2">
+        <form method="get">
+            <h2>Rooms</h2>
+            <div>
+                <select asp-for="RoomsId" asp-items="@Model.Rooms" class="form-control"></select>
             </div>
-            <div class="dhx_cal_header"></div>
-            <div class="dhx_cal_data"></div>
-        </div>
+        </form>
     </div>
+
+<div class="col-md-6">
+    <div id="main_scheduler" class="dhx_cal_container" style="width: 100%; height: 100%; padding: 100%;">
+        <div class="dhx_cal_navline">
+            <div class="dhx_cal_prev_button">&nbsp;</div>
+            <div class="dhx_cal_next_button">&nbsp;</div>
+            <div class="dhx_cal_today_button"></div>
+            <div class="dhx_cal_date"></div>
+            <div class="dhx_cal_tab" name="day_tab" style="right: 204px;"></div>
+            <div class="dhx_cal_tab" name="week_tab" style="right: 140px;"></div>
+            <div class="dhx_cal_tab" name="month_tab" style="right: 76px;"></div>
+        </div>
+        <div class="dhx_cal_header"></div>
+        <div class="dhx_cal_data"></div>
+    </div>
+</div>
 </div>
 
 @section Scripts {
@@ -36,7 +45,7 @@
         scheduler.attachEvent("onEventSave",
             function (id, ev, is_new) {
                 $.ajax({
-                    url: "api/reservationApi",
+                    url: "api/reservationApi/",
                     type: "POST",
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(ev),

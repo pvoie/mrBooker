@@ -9,9 +9,10 @@ namespace MRBooker.Data.SchedulerModels
     [DataContract]
     public class SchedulerEventModel
     {
-        [DataMember(Name = "id")]
-        public string IdStr => Id.ToString();
+        
+        //public string IdStr => Id.ToString();
 
+        [DataMember(Name = "id")]
         public long Id { get; set; }
 
         [DataMember(Name = "text")]
@@ -21,17 +22,32 @@ namespace MRBooker.Data.SchedulerModels
        
         public string Status { get; set; }
         
-        //public string StartDateStr => StartDate.ToString("dd/MM/yyyy HH:mm:ss");
-        [DataMember(Name = "start_date")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{dd/MM/yyyy HH:mm:ss}")]
-        public DateTime StartDate { get; set; }
+       
 
+        private DateTime? _startDate { get; set; }
+        [DataMember(Name = "start_date")]
+        public string StartDate
+        {
+            get
+            {
+                DateTime.TryParse(_startDate.ToString(), out DateTime date);
+                return date.ToString("dd/MM/yyyy HH:mm:ss");
+            }
+            set => _startDate = Convert.ToDateTime(value);
+        }
+
+
+        public DateTime? _endDate { get; set; }
         [DataMember(Name = "end_date")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{dd/MM/yyyy HH:mm:ss}")]
-        public DateTime EndDate { get; set; }
-        //public string EndDateStr => EndDate.ToString("dd/MM/yyyy HH:mm:ss");
+        public string EndDate
+        {
+            get
+            {
+                DateTime.TryParse(_endDate.ToString(), out DateTime date);
+                return date.ToString("dd/MM/yyyy HH:mm:ss");
+            }
+            set => _endDate = Convert.ToDateTime(value);
+        }
 
         [DataMember(Name = "type")]
         public string TypeStr => Type.ToString();

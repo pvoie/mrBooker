@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using MRBooker.Data.Models.Entities;
 using MRBooker.Data.Repository;
@@ -14,7 +13,6 @@ namespace MRBooker.Controllers.Api
     [Route("api/ReservationApi")]
     public class ReservationApiController : Controller
     {
-        private readonly IRepository<Reservation> _reservationRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<ReservationApiController> _logger;
 
@@ -23,7 +21,6 @@ namespace MRBooker.Controllers.Api
         {
             _logger = logger;
             _unitOfWork = unitOfWork;
-            _reservationRepository = reservationRepository;
         }
 
         // GET: api/ReservationApi

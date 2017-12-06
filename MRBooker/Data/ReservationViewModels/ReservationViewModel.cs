@@ -1,11 +1,17 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using MRBooker.Data.Models.Entities;
 
 namespace MRBooker.Data.ReservationViewModels
 {
     public class ReservationViewModel
     {
         public ICollection<string> Reservations { get; set; }
+
+        public SelectListItem RoomsId { get; set; }
+
+        public SelectList Rooms { get; set; }
 
         public string JsonList { get; set; }
 
