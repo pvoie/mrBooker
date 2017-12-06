@@ -70,7 +70,7 @@ namespace MRBooker.Controllers.Api
                 if (user == null) return new StatusCodeResult(StatusCodes.Status401Unauthorized);
 
                 if (user.Reservations == null)
-                    return new StatusCodeResult(StatusCodes.Status404NotFound);
+                    return new StatusCodeResult(StatusCodes.Status204NoContent);
 
                 return Ok(user.Reservations.ToSchedulerEventModelList());
             }
@@ -95,7 +95,7 @@ namespace MRBooker.Controllers.Api
                 var reservations = _unitOfWork.ReservationRepository.GetAll().Where(r => r.RoomId == roomId);
 
                 if (reservations == null)
-                    return new StatusCodeResult(StatusCodes.Status404NotFound);
+                    return new StatusCodeResult(StatusCodes.Status204NoContent);
 
                 return Ok(reservations.ToSchedulerEventModelList());
             }
@@ -180,7 +180,7 @@ namespace MRBooker.Controllers.Api
                 _unitOfWork.ReservationRepository.Update(reservation);
                 _unitOfWork.Save();
 
-                return new StatusCodeResult(StatusCodes.Status201Created);
+                return new StatusCodeResult(StatusCodes.Status200OK);
             }
             catch (Exception ex)
             {
