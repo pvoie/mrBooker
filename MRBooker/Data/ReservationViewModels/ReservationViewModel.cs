@@ -9,7 +9,7 @@ namespace MRBooker.Data.ReservationViewModels
     {
         public ICollection<string> Reservations { get; set; }
 
-        public SelectListItem RoomsId { get; set; }
+        public SelectListItem RoomId { get; set; }
 
         public SelectList Rooms { get; set; }
 

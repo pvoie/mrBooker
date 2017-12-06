@@ -12,7 +12,7 @@
         <form method="get">
             <h2>Rooms</h2>
             <div>
-                <select asp-for="RoomsId" asp-items="@Model.Rooms" class="form-control"></select>
+                <select asp-for="RoomId" asp-items="@Model.Rooms" class="form-control"></select>
             </div>
         </form>
     </div>
@@ -40,25 +40,35 @@
         scheduler.config.readonly = false;
         scheduler.init('main_scheduler', new Date(), "month");
 
-        scheduler.load("api/reservationApi", "json");
+        scheduler.load("api/reservationApi/GetAll", "json");
 
         scheduler.attachEvent("onEventSave",
-            function (id, ev, is_new) {
+            function(id, ev, is_new) {
                 $.ajax({
                     url: "api/reservationApi/",
                     type: "POST",
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(ev),
-                    success: function () {
+                    success: function() {
                         console.log('success !' + ev);
                         return true;
                     },
-                    error: function () {
+                    error: function() {
                         console.log('error !' + ev);
                         return false;
                     }
                 });
             });
+
+        $(document).ready(function() {
+            $("#RoomId").change(function() {
+               
+                var roomid = $('#RoomId option:selected').val();
+                scheduler.load("api/reservationApi/GetReservationByRoom/?roomId=" + roomid, "json");
+                scheduler.clearAll();
+                scheduler.setCurrentView();
+            });
+        });
 
     </script>
 

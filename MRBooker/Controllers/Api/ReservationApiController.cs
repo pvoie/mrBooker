@@ -96,8 +96,8 @@ namespace MRBooker.Controllers.Api
 
                 if (reservations == null)
                     return new StatusCodeResult(StatusCodes.Status204NoContent);
-
-                return Ok(reservations.ToSchedulerEventModelList());
+                var res = new SchedulerEventHolderModel {data = reservations.ToSchedulerEventModelList().ToList()};
+                return Ok(res);
             }
             catch (Exception ex)
             {

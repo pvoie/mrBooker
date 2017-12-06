@@ -9,25 +9,23 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using MRBooker.Wrappers;
 using Microsoft.Extensions.Logging;
 using MRBooker.Data.ReservationViewModels;
+using MRBooker.Data.UoW;
 
 namespace MRBooker.Controllers
 {
     public class ReservationController : Controller
     {
-        private IRepository<Reservation> _reservationRepo;
-        private IRepository<Room> _roomRepo;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly ApplicationUserManager<ApplicationUser> _userManager;
         private readonly ILogger<ReservationController> _logger;
 
-        public ReservationController(IRepository<Reservation> reservationRepo,
-            IRepository<Room> roomRepo,
+        public ReservationController(IUnitOfWork unitOfWork,
             ApplicationUserManager<ApplicationUser> userManager,
             ILogger<ReservationController> logger)
         {
             _logger = logger;
             _userManager = userManager;
-            _reservationRepo = reservationRepo;
-            _roomRepo = roomRepo;
+            _unitOfWork = unitOfWork;
         }
 
         // GET: Reservation
@@ -37,7 +35,7 @@ namespace MRBooker.Controllers
 
             _logger.LogInformation($"User {test.UserName} has been retrieved with reservations {test.Reservations}");
 
-            var rooms = _roomRepo.GetAll();
+            var rooms = _unitOfWork.RoomRepository.GetAll();
             ViewBag.ListOfRooms = rooms;
 
             return View("Add");
@@ -76,8 +74,8 @@ namespace MRBooker.Controllers
                     UserId = _userManager.GetUserId(User),
                     RoomId = Convert.ToInt64(collection["RoomId"])
                 };
-                _reservationRepo.Insert(reservation);
-
+                _unitOfWork.ReservationRepository.Insert(reservation);
+                _unitOfWork.Save();
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception e)

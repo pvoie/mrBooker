@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using MRBooker.Data;
 using MRBooker.Wrappers;
@@ -28,8 +29,10 @@ namespace MRBooker.Controllers
         {
             var model = new ReservationViewModel();
 
-            var rooms = _unitOfWork.RoomRepository.GetAll();
+            var rooms = _unitOfWork.RoomRepository.GetAll().ToList();
+            rooms.Insert(0, new Room {Id = 0, Name = "All Rooms"});
             model.Rooms = new SelectList(rooms, "Id", "Name");
+            
             if (User.Identity.IsAuthenticated)
             {
                 
