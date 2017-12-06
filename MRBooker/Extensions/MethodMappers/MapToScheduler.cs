@@ -2,6 +2,7 @@
 using System.Globalization;
 using MRBooker.Data.Models.Entities;
 using MRBooker.Data.SchedulerModels;
+using System.Collections.Generic;
 
 namespace MRBooker.Extensions.MethodMappers
 {
@@ -14,16 +15,25 @@ namespace MRBooker.Extensions.MethodMappers
             {
                 Id = model.Id,
                 Title = model.Title,
-                //Description = model.Description,
-                //Status = model.Status,
                 StartDate = Convert.ToString(model.Start, CultureInfo.InvariantCulture),
                 EndDate = Convert.ToString(model.End, CultureInfo.InvariantCulture),
                 Type = 1
-                //Room = model.Room
             };
 
             return reservation;
         }
 
+        public static IEnumerable<SchedulerEventModel> ToSchedulerEventModelList(this IEnumerable<Reservation> model)
+        {
+            if (model == null) return null;
+
+            var result = new List<SchedulerEventModel>();
+            foreach (var item in model)
+            {
+                result.Add(item.ToSchedulerModel());
+            }
+           
+            return result;
+        }
     }
 }

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using MRBooker.Data;
 using MRBooker.Wrappers;
 using MRBooker.Data.Models.Entities;
 using Microsoft.Extensions.Logging;
 using MRBooker.Data.ReservationViewModels;
-using System.Collections.Generic;
-using System.Globalization;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using MRBooker.Data.SchedulerModels;
 using MRBooker.Data.UoW;
 
 namespace MRBooker.Controllers

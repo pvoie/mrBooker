@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MRBooker.Data.SchedulerModels
 {
-    public class SchdulerDataViewModel
+    public class SchedulerEventHolderModel
     {
         [DataMember (Name = "data")]
         public List<SchedulerEventModel> data { get; set; }

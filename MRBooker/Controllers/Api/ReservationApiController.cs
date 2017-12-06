@@ -33,17 +33,17 @@ namespace MRBooker.Controllers.Api
         /// Get all existing reservations
         /// </summary>
         /// <returns>A list of all reservations</returns>
-        [HttpGet(Name = "GetAll")]
+        [HttpGet]
+        [Route("GetAll")]
         public IActionResult GetAll()
         {
             try
             {
                 var allReservations = _unitOfWork.ReservationRepository.GetAll();
-
                 if (allReservations == null)
                     return new StatusCodeResult(StatusCodes.Status204NoContent);
 
-                return Ok(allReservations);
+                return Ok(allReservations.ToSchedulerEventModelList());
             }
             catch (Exception ex)
             {
@@ -56,7 +56,8 @@ namespace MRBooker.Controllers.Api
         /// Get reservations for the current user
         /// </summary>
         /// <returns>A list of reservations</returns>
-        [HttpGet(Name = "GetUserReservations")]
+        [HttpGet]
+        [Route("GetUserReservations")]
         [Authorize]
         public IActionResult GetUserReservations()
         {
@@ -71,7 +72,7 @@ namespace MRBooker.Controllers.Api
                 if (user.Reservations == null)
                     return new StatusCodeResult(StatusCodes.Status404NotFound);
 
-                return Ok(user.Reservations);
+                return Ok(user.Reservations.ToSchedulerEventModelList());
             }
             catch (Exception ex)
             {
@@ -85,7 +86,8 @@ namespace MRBooker.Controllers.Api
         /// </summary>
         /// <param name="roomId">The id of the room</param>
         /// <returns>A list of reservations</returns>
-        [HttpGet(Name = "GetReservationByRoom")]
+        [HttpGet]
+        [Route("GetReservationByRoom")]
         public IActionResult GetReservationByRoom(long roomId)
         {
             try
@@ -95,7 +97,7 @@ namespace MRBooker.Controllers.Api
                 if (reservations == null)
                     return new StatusCodeResult(StatusCodes.Status404NotFound);
 
-                return Ok(reservations);
+                return Ok(reservations.ToSchedulerEventModelList());
             }
             catch (Exception ex)
             {
@@ -109,7 +111,8 @@ namespace MRBooker.Controllers.Api
         /// </summary>
         /// <param name="id">Reservation id</param>
         /// <returns>A reservation</returns>
-        [HttpGet("{id}", Name = "GetReservation")]
+        [HttpGet("{id}")]
+        [Route("GetReservation")]
         public IActionResult GetReservation(long id)
         {
             try
@@ -119,7 +122,7 @@ namespace MRBooker.Controllers.Api
                 if (reservation == null)
                     return new StatusCodeResult(StatusCodes.Status404NotFound);
 
-                return Ok(reservation);
+                return Ok(reservation.ToSchedulerModel());
             }
             catch (Exception ex)
             {
@@ -165,6 +168,9 @@ namespace MRBooker.Controllers.Api
             try
             {
                 var reservation = _unitOfWork.ReservationRepository.Get(model.Id);
+                if (reservation == null)
+                    return new StatusCodeResult(StatusCodes.Status404NotFound);
+
                 reservation.ModifiedDate = DateTime.Now;
                 reservation.IPAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
                 reservation.Start = Convert.ToDateTime(model.StartDate);
@@ -195,6 +201,9 @@ namespace MRBooker.Controllers.Api
             try
             {
                 var reservation = _unitOfWork.ReservationRepository.Get(id);
+                if (reservation == null)
+                    return new StatusCodeResult(StatusCodes.Status404NotFound);
+
                 _unitOfWork.ReservationRepository.Delete(reservation);
                 _unitOfWork.Save();
 

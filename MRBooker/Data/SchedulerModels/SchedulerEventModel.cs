@@ -9,20 +9,15 @@ namespace MRBooker.Data.SchedulerModels
     [DataContract]
     public class SchedulerEventModel
     {
-        
-        //public string IdStr => Id.ToString();
-
         [DataMember(Name = "id")]
         public long Id { get; set; }
 
         [DataMember(Name = "text")]
         public string Title { get; set; }
-        
+
         public string Description { get; set; }
-       
+
         public string Status { get; set; }
-        
-       
 
         private DateTime? _startDate { get; set; }
         [DataMember(Name = "start_date")]
@@ -55,10 +50,5 @@ namespace MRBooker.Data.SchedulerModels
         public long Type { get; set; }
 
         public Room Room { get; set; }
-
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.None);
-        }
     }
 }
