@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Runtime.Serialization;
 
 namespace MRBooker.Data.SchedulerModels
@@ -28,7 +29,7 @@ namespace MRBooker.Data.SchedulerModels
                 DateTime.TryParse(_startDate.ToString(), out DateTime date);
                 return date.ToString("dd/MM/yyyy HH:mm:ss");
             }
-            set => _startDate = Convert.ToDateTime(value);
+            set => _startDate = DateTime.ParseExact(value, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
         }
 
 
@@ -41,7 +42,7 @@ namespace MRBooker.Data.SchedulerModels
                 DateTime.TryParse(_endDate.ToString(), out DateTime date);
                 return date.ToString("dd/MM/yyyy HH:mm:ss");
             }
-            set => _endDate = Convert.ToDateTime(value);
+            set => _endDate = DateTime.ParseExact(value, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
         }
 
         [DataMember(Name = "type")]

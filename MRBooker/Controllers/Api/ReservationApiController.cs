@@ -92,12 +92,14 @@ namespace MRBooker.Controllers.Api
         {
             try
             {
-                var reservations = _unitOfWork.ReservationRepository.GetAll().Where(r => r.RoomId == roomId);
+                var reservations = roomId <= 0 ?
+                    _unitOfWork.ReservationRepository.GetAll() :
+                    _unitOfWork.ReservationRepository.GetAll().Where(r => r.RoomId == roomId);
 
                 if (reservations == null)
                     return new StatusCodeResult(StatusCodes.Status204NoContent);
-                var res = new SchedulerEventHolderModel {data = reservations.ToSchedulerEventModelList().ToList()};
-                return Ok(res);
+                var result = new SchedulerEventHolderModel { data = reservations.ToSchedulerEventModelList().ToList() };
+                return Ok(result);
             }
             catch (Exception ex)
             {
