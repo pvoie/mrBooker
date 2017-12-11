@@ -1,0 +1,55 @@
+﻿@using MRBooker.Data.AdministrationViewModels;
+
+@model AdminViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1>
+                    Admin dashboard <small>Choose your tab to start managing items.</small>
+                </h1>
+            </div>
+            <ul class="nav nav-tabs btn-group">
+                <li class="active">
+                    <a id="1" class="tab btn">Rooms</a>
+                </li>
+                <li>
+                    <a id="2" class="tab btn">Places</a>
+                </li>
+                <li>
+                    <a id="3" class="tab btn">Reservations</a>
+                </li>
+            </ul>
+            <div id="div-for-partial"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        var getPartialView = function (id) {
+            $.get('@Url.Content("Admin/GetPartialView")', { 'id': id },  function (data) {
+                $('#div-for-partial').html(data);
+            });
+        };
+
+        $(function () {
+            getPartialView(1);
+
+            $(".nav li").on("click", function () {
+                $(".nav li").removeClass("active");
+                $(this).addClass("active");
+            });
+            $('.tab').click(function () {
+                var id = this.id;
+                getPartialView(id);
+            });
+        });
+    </script>
+}
