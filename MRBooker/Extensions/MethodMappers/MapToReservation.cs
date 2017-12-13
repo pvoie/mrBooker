@@ -16,28 +16,16 @@ namespace MRBooker.Extensions.MethodMappers
                 Title = model.Title,
                 Description = model.Description,
                 Status = model.Status,
-                Start = Convert.ToDateTime(model.StartDate, CultureInfo.InvariantCulture),
-                End = Convert.ToDateTime(model.EndDate, CultureInfo.InvariantCulture),
-                Room = GetRoomContent(model)
+                Start = Convert.ToDateTime(model.StartDate, CultureInfo.InvariantCulture).ToUniversalTime(),
+                End = Convert.ToDateTime(model.EndDate, CultureInfo.InvariantCulture).ToUniversalTime(),
+                UserId = model.UserId,
+                RoomId = model.RoomId,
+                IPAddress = model.IpAddress,
+                AddedDate = DateTime.Today,
+                ModifiedDate = DateTime.Today
             };
 
             return reservation;
-        }
-
-        private static Room GetRoomContent(this SchedulerEventModel model)
-        {
-            if (model == null) return null;
-
-            var room = new Room
-            {
-                Name = model.Room.Name,
-                Description = model.Room.Description,
-                Capacity = model.Room.Capacity,
-                Reservations = model.Room.Reservations,
-                Place = model.Room.Place
-            };
-
-            return room;
         }
     }
 }

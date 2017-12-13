@@ -64,10 +64,10 @@ namespace MRBooker.Controllers
                 {
                     AddedDate = DateTime.Now,
                     Description = Convert.ToString(collection["Description"]),
-                    End = Convert.ToDateTime(collection["End"]),
+                    End = Convert.ToDateTime(collection["End"]).ToUniversalTime(),
                     IPAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
                     ModifiedDate = DateTime.Now,
-                    Start = Convert.ToDateTime(collection["Start"]),
+                    Start = Convert.ToDateTime(collection["Start"]).ToUniversalTime(),
                     Status = Convert.ToString(collection["Status"]),
                     Title = Convert.ToString(collection["Title"]),
                     User = _userManager.GetUserAsync(User).Result,

@@ -139,15 +139,23 @@ namespace MRBooker.Controllers.Api
         /// <param name="model">The reservation details</param>
         /// <returns>Status Code Result</returns>
         [HttpPost(Name = "Insert")]
-        [Authorize]
-        [ValidateAntiForgeryToken]
+        //[Authorize]
+        //[ValidateAntiForgeryToken]
+        [Route("Insert")]
         public StatusCodeResult Insert([FromBody]SchedulerEventModel model)
         {
             try
             {
-                var reservation = model.ToReservationModel();
-                _unitOfWork.ReservationRepository.Insert(reservation);
-                _unitOfWork.Save();
+                var ipAddress = Request.HttpContext.Connection.RemoteIpAddress;
+                var user = _userManager.GetUserAsync(HttpContext.User);
+                if (user != null)
+                {
+                    model.UserId = user.Result.Id;
+                    model.IpAddress = ipAddress.ToString();
+                    var reservation = model.ToReservationModel();
+                    _unitOfWork.ReservationRepository.Insert(reservation);
+                    _unitOfWork.Save();
+                }
 
                 return new StatusCodeResult(StatusCodes.Status201Created);
             }
@@ -164,7 +172,7 @@ namespace MRBooker.Controllers.Api
         /// <param name="model">The reservation details</param>
         /// <returns>Status Code Result</returns>
         [HttpPut(Name = "Update")]
-        [Authorize]
+        [Route("Update")]
         public StatusCodeResult Update([FromBody]SchedulerEventModel model)
         {
             try
@@ -197,7 +205,7 @@ namespace MRBooker.Controllers.Api
         /// <param name="id">Reservation id</param>
         /// <returns>Status Code Result</returns>
         [HttpDelete("{id}")]
-        [Authorize]
+        [Route("Delete")]
         public StatusCodeResult Delete(int id)
         {
             try

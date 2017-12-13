@@ -15,8 +15,10 @@ namespace MRBooker.Extensions.MethodMappers
             {
                 Id = model.Id,
                 Title = model.Title,
-                StartDate = model.Start.ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture),
-                EndDate = model.End.ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture),
+                Description = model.Description,
+                Status = model.Status,
+                StartDate = model.Start.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
+                EndDate = model.End.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
                 Type = 1
             };
 

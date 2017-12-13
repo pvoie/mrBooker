@@ -1,9 +1,7 @@
-﻿using MRBooker.Data.Models.Entities;
-using Newtonsoft.Json;
-using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
 using System.Globalization;
 using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
 
 namespace MRBooker.Data.SchedulerModels
 {
@@ -13,11 +11,13 @@ namespace MRBooker.Data.SchedulerModels
         [DataMember(Name = "id")]
         public long Id { get; set; }
 
-        [DataMember(Name = "text")]
+        [DataMember(Name = "title")]
         public string Title { get; set; }
 
+        [DataMember(Name = "description")]
         public string Description { get; set; }
 
+        [DataMember(Name = "status")]
         public string Status { get; set; }
 
         private DateTime? _startDate { get; set; }
@@ -27,9 +27,9 @@ namespace MRBooker.Data.SchedulerModels
             get
             {
                 DateTime.TryParse(_startDate.ToString(), out DateTime date);
-                return date.ToString("dd/MM/yyyy HH:mm:ss");
+                return date.ToString("yyyy-MM-dd HH:mm:ss");
             }
-            set => _startDate = DateTime.ParseExact(value, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+            set => _startDate = ParseDate(value);
         }
 
 
@@ -40,16 +40,35 @@ namespace MRBooker.Data.SchedulerModels
             get
             {
                 DateTime.TryParse(_endDate.ToString(), out DateTime date);
-                return date.ToString("dd/MM/yyyy HH:mm:ss");
+                return date.ToString("yyyy-MM-dd HH:mm:ss");
             }
-            set => _endDate = DateTime.ParseExact(value, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+            set => _endDate = ParseDate(value);
         }
 
         [DataMember(Name = "type")]
         public string TypeStr => Type.ToString();
 
         public long Type { get; set; }
+        [DataMember(Name = "roomId")]
+        public long RoomId { get; set; }
 
-        public Room Room { get; set; }
+        public string UserId { get; set; }
+
+        public string IpAddress { get; set; }
+        private static DateTime ParseDate(string value)
+        {
+            var charsToRemove = new[] { "T", "Z", ".000"};
+            foreach (var c in charsToRemove)
+            {
+                value = value.Replace(c, " ");
+            }
+            var trimEnd = value.TrimEnd(' ', ' ');
+            string[] dateFormat ={"yyyy-MM-dd HH:mm:ss" };
+            
+            var enUs = new CultureInfo("en-US");
+            DateTime.TryParseExact(trimEnd, dateFormat, enUs, DateTimeStyles.None, out DateTime date);
+                return date.ToUniversalTime();
+
+        }
     }
 }
