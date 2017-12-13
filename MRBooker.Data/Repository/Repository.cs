@@ -19,9 +19,9 @@ namespace MRBooker.Data.Repository
             entities = dbContext.Set<T>();
         }
 
-        public IEnumerable<T> GetAll()
+        public IQueryable<T> GetAll()
         {
-            return entities.AsEnumerable();
+            return entities.AsNoTracking();
         }
 
         public T Get(long id)
