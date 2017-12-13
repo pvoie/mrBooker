@@ -140,25 +140,16 @@ namespace MRBooker.Controllers
             }
         }
 
-        // GET: Room/Delete/5
-        [HttpGet]
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
         // POST: Room/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
                 var room = _unitOfWork.RoomRepository.GetAll().FirstOrDefault(x => x.Id == id);
                 _unitOfWork.RoomRepository.Delete(room);
                 _unitOfWork.Save();
-
-                //return View();
 
                 return RedirectToAction(nameof(Index));
             }

@@ -3,6 +3,7 @@
 
 @model PaginatedList<Place>
 
+@Html.AntiForgeryToken()
 
 <div class="container">
     <h3>List of places</h3>
@@ -63,7 +64,10 @@
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                             <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            <div class="delete-section" style="display: inline;">
+                                <a class="delete-link" href="@Url.Action("Delete", new { id = item.Id })">Delete</a>
+                                <div class="btn btn-danger btn-primary delete-confirm" style="display:none; padding: 1px 2px;" data-delete-id="@item.Id">Confirm Delete</div>
+                            </div>
                         </td>
                     </tr>
                 }
@@ -93,3 +97,7 @@
         <h2 class="text-danger">No Places available</h2>
     }
 </div>
+
+@section Scripts {
+    @await Html.PartialAsync("_deleteScriptPartial");
+}

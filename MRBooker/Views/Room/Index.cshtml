@@ -8,6 +8,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@Html.AntiForgeryToken()
+
 <div class="container">
     <h3>List of rooms</h3>
     <p>
@@ -55,8 +57,10 @@
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                             <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                            @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
-                            <a id="roomDelete" href="#">Delete</a>
+                            <div class="delete-section" style="display: inline;">
+                                <a class="delete-link" href="@Url.Action("Delete", new { id = item.Id })">Delete</a>
+                                <div class="btn btn-danger btn-primary delete-confirm" style="display:none; padding: 1px 2px;" data-delete-id="@item.Id">Confirm Delete</div>
+                            </div>
                         </td>
                     </tr>
                 }
@@ -88,11 +92,5 @@
 </div>
 
 @section Scripts {
-    <script type="text/javascript">
-        $(function () {
-            $("#roomDelete").on("click", function () {
-                alert("This requires implementation");
-            });
-        });
-    </script>
+    @await Html.PartialAsync("_deleteScriptPartial");
 }

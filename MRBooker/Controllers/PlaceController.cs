@@ -7,9 +7,11 @@ using MRBooker.Data.Models.Entities;
 using MRBooker.Wrappers;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MRBooker.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class PlaceController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -167,16 +169,10 @@ namespace MRBooker.Controllers
             }
         }
 
-        // GET: Place/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
         // POST: Place/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
