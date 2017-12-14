@@ -8,15 +8,21 @@ namespace MRBooker.Data.UoW
     {
         private ApplicationDbContext _dbContext;
 
-        private IRepository<Reservation> _reservationRepository;
-        private IRepository<Room> _roomRepository;
-        private IRepository<Place> _placeRepository;
+        private readonly IRepository<Reservation> _reservationRepository;
+        private readonly IRepository<Room> _roomRepository;
+        private readonly IRepository<Place> _placeRepository;
 
         private bool isDisposed = false;
 
-        public UnitOfWork(ApplicationDbContext dbContext)
+        public UnitOfWork(ApplicationDbContext dbContext,
+            IRepository<Reservation> reservationRepository,
+            IRepository<Room> roomRepository,
+            IRepository<Place> placeRepository)
         {
             _dbContext = dbContext;
+            _reservationRepository = reservationRepository;
+            _roomRepository = roomRepository;
+            _placeRepository = placeRepository;
         }
 
         public IRepository<Reservation> ReservationRepository
