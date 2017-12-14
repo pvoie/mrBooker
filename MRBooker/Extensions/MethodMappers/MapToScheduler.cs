@@ -19,7 +19,7 @@ namespace MRBooker.Extensions.MethodMappers
                 Status = model.Status,
                 StartDate = model.Start.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
                 EndDate = model.End.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
-                Type = 1
+                Color = model.Room.Color
             };
 
             return reservation;

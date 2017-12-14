@@ -93,6 +93,7 @@ namespace MRBooker.Controllers
                 room.Name = collection["Name"];
                 room.Description = collection["Description"];
                 room.Capacity = Convert.ToInt32(collection["Capacity"]);
+                room.Color = collection["Color"];
                 room.PlaceId = Convert.ToInt64(collection["PlaceId"]);
                 room.AddedDate = DateTime.Now;
                 room.ModifiedDate = DateTime.Now;
@@ -126,6 +127,7 @@ namespace MRBooker.Controllers
                 var room = _unitOfWork.RoomRepository.GetAll().FirstOrDefault(x => x.Id == id);
                 room.Name = collection["Name"];
                 room.PlaceId = Convert.ToInt64(collection["PlaceId"]);
+                room.Color = collection["Color"];
                 room.ModifiedDate = DateTime.Now;
                 room.IPAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
 

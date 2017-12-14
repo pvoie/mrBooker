@@ -12,6 +12,7 @@ namespace MRBooker.Data.Mappers
             entityBuilder.Property(t => t.Name).IsRequired().HasMaxLength(100);
             entityBuilder.Property(t => t.Description).IsRequired().HasMaxLength(500);
             entityBuilder.Property(t => t.Capacity);
+            entityBuilder.Property(t => t.Color);
             entityBuilder.Property(t => t.IPAddress);
             entityBuilder.Property(t => t.AddedDate);
             entityBuilder.Property(t => t.ModifiedDate);

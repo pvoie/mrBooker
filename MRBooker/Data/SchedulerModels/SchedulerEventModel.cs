@@ -1,7 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Runtime.Serialization;
-using System.Text.RegularExpressions;
+﻿using System.Runtime.Serialization;
 
 namespace MRBooker.Data.SchedulerModels
 {
@@ -19,31 +16,12 @@ namespace MRBooker.Data.SchedulerModels
 
         [DataMember(Name = "status")]
         public string Status { get; set; }
-
-        private DateTime? _startDate { get; set; }
+        
         [DataMember(Name = "start_date")]
-        public string StartDate
-        {
-            get
-            {
-                DateTime.TryParse(_startDate.ToString(), out DateTime date);
-                return date.ToString("yyyy-MM-dd HH:mm:ss");
-            }
-            set => _startDate = ParseDate(value);
-        }
-
-
-        public DateTime? _endDate { get; set; }
+        public string StartDate { get; set; }
+        
         [DataMember(Name = "end_date")]
-        public string EndDate
-        {
-            get
-            {
-                DateTime.TryParse(_endDate.ToString(), out DateTime date);
-                return date.ToString("yyyy-MM-dd HH:mm:ss");
-            }
-            set => _endDate = ParseDate(value);
-        }
+        public string EndDate { get; set; }
 
         [DataMember(Name = "type")]
         public string TypeStr => Type.ToString();
@@ -55,20 +33,8 @@ namespace MRBooker.Data.SchedulerModels
         public string UserId { get; set; }
 
         public string IpAddress { get; set; }
-        private static DateTime ParseDate(string value)
-        {
-            var charsToRemove = new[] { "T", "Z", ".000"};
-            foreach (var c in charsToRemove)
-            {
-                value = value.Replace(c, " ");
-            }
-            var trimEnd = value.TrimEnd(' ', ' ');
-            string[] dateFormat ={"yyyy-MM-dd HH:mm:ss" };
-            
-            var enUs = new CultureInfo("en-US");
-            DateTime.TryParseExact(trimEnd, dateFormat, enUs, DateTimeStyles.None, out DateTime date);
-                return date.ToUniversalTime();
 
-        }
+        [DataMember(Name = "color")]
+        public string Color { get; set; }
     }
 }

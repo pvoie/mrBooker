@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ using MRBooker.Extensions.MethodMappers;
 using Microsoft.Extensions.Logging;
 using MRBooker.Data.UoW;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using MRBooker.Wrappers;
 
 namespace MRBooker.Controllers.Api
@@ -39,7 +41,7 @@ namespace MRBooker.Controllers.Api
         {
             try
             {
-                var allReservations = _unitOfWork.ReservationRepository.GetAll();
+                var allReservations = _unitOfWork.ReservationRepository.GetAll().Include(x => x.Room);
                 if (allReservations == null)
                     return new StatusCodeResult(StatusCodes.Status204NoContent);
 
@@ -93,8 +95,8 @@ namespace MRBooker.Controllers.Api
             try
             {
                 var reservations = roomId <= 0 ?
-                    _unitOfWork.ReservationRepository.GetAll() :
-                    _unitOfWork.ReservationRepository.GetAll().Where(r => r.RoomId == roomId);
+                    _unitOfWork.ReservationRepository.GetAll().Include(x => x.Room) :
+                    _unitOfWork.ReservationRepository.GetAll().Include(x => x.Room).Where(r => r.RoomId == roomId);
 
                 if (reservations == null)
                     return new StatusCodeResult(StatusCodes.Status204NoContent);
@@ -146,13 +148,25 @@ namespace MRBooker.Controllers.Api
         {
             try
             {
-                var ipAddress = Request.HttpContext.Connection.RemoteIpAddress;
+                var ipAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
                 var user = _userManager.GetUserAsync(HttpContext.User);
                 if (user != null)
                 {
-                    model.UserId = user.Result.Id;
-                    model.IpAddress = ipAddress.ToString();
-                    var reservation = model.ToReservationModel();
+
+                    var reservation = new Reservation
+                    {
+                        Description = model.Description,
+                        Start = Convert.ToDateTime(model.StartDate),
+                        End = Convert.ToDateTime(model.EndDate),
+                        RoomId = model.RoomId,
+                        Status = model.Status,
+                        Title = model.Title,
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        IPAddress = ipAddress,
+                        UserId = user.Result.Id
+                    };
+
                     _unitOfWork.ReservationRepository.Insert(reservation);
                     _unitOfWork.Save();
                 }

@@ -5,7 +5,9 @@
 @{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var readOnly = (!User.Identity.IsAuthenticated).ToString().ToLowerInvariant();
 }
+
 
 <div class="row">
     <div class="col-md-2">
@@ -51,10 +53,12 @@
             }
 
             scheduler.config.xml_date = "%Y/%m/%d %h:%i:%s";
-            
-            scheduler.config.server_utc = true;
-            scheduler.config.readonly = false;
-            
+            scheduler.config.limit_time_select = true;
+            scheduler.config.first_hour = 8;
+            scheduler.config.last_hour = 22;
+            scheduler.config.server_utc = false;
+            scheduler.config.readonly = @readOnly;
+
             var selectedRoom = [
                 { key: $('#RoomId option:selected').val(), label: $('#RoomId option:selected').text() }
             ];
@@ -68,6 +72,12 @@
 
             scheduler.templates.event_bar_text = function (start, end, ev) {
                 return ev.title;
+            };
+
+            scheduler.templates.tooltip_text = function(start,end,ev){
+                return "<b>Event:</b> "+ev.title+"<br/><b>Start date:</b> " + 
+                    scheduler.templates.tooltip_date_format(start)+ 
+                    "<br/><b>End date:</b> "+scheduler.templates.tooltip_date_format(end);
             };
             scheduler.locale.labels.section_room = 'Room';
             scheduler.config.lightbox.sections = lbSections;
@@ -91,10 +101,10 @@
                         type: "radio",
                         vertical: true
                     },
-                    { name: "time", height: 72, type: "time", map_to: "auto", time_format: ["%H:%i", "%d", "%m", "%Y"]  }
+                    { name: "time", height: 72, type: "time", map_to: "auto", time_format: ["%H:%i", "%d", "%m", "%Y"] }
                 ];
             });
-            
+
             scheduler.attachEvent("onBeforeLightbox",
                 function (id) {
                     if ($('#RoomId option:selected').text() === "All Rooms") {
@@ -102,17 +112,17 @@
                             title: "Room",
                             type: "alert-warning",
                             text: "Please select a room before reservation",
-                            callback: function() {
+                            callback: function () {
                                 scheduler.endLightbox(true, document.getElementsByClassName('dhx_cal_light_wide')[0]);
                             }
                         });
                     }
-                    
+
                     scheduler.resetLightbox();
                     scheduler.config.lightbox.sections = lbSections;
                     return true;
                 });
-            
+
             scheduler.attachEvent("onEventSave",
                 function (id, ev, is_new) {
                     if (is_new) {
@@ -121,17 +131,17 @@
                             type: "POST",
                             contentType: 'application/json; charset=utf-8',
                             data: JSON.stringify(ev),
-                            success: function() {
+                            success: function () {
                                 dhtmlx.message({
                                     title: "Reservation",
                                     type: "alert-warning",
                                     text: "Reservation has been saved.",
-                                    callback: function () { scheduler.endLightbox(true, document.getElementsByClassName('dhx_cal_light_wide')[0])}
+                                    callback: function () { scheduler.endLightbox(true, document.getElementsByClassName('dhx_cal_light_wide')[0]) }
                                 });
                                 scheduler.clearAll();
                                 scheduler.setCurrentView();
                             },
-                            error: function() {
+                            error: function () {
                                 console.log('error !' + ev);
                                 return false;
                             }
@@ -141,7 +151,7 @@
                             url: "api/reservationApi/update",
                             type: "PUT",
                             contentType: 'application/json; charset=utf-8',
-                            data: JSON.stringify(ev),
+                            data: JSON.stringify(id,ev),
                             success: function (ev) {
                                 dhtmlx.message({
                                     title: "Reservation",
@@ -159,7 +169,23 @@
                         });
                     }
                 });
-
+            //scheduler.attachEvent("onBeforeEventChanged",
+            //    function (ev, e, is_new, original) {
+            //        $.ajax({
+            //            url: "api/reservationApi/update",
+            //            type: "PUT",
+            //            contentType: 'application/json; charset=utf-8',
+            //            data: JSON.stringify(ev),
+            //            success: function (ev) {
+            //                console.log('success !' + ev);
+            //                return true;
+            //            },
+            //            error: function () {
+            //                console.log('error !' + ev);
+            //                return false;
+            //            }
+            //        });
+            //    });
             scheduler.attachEvent("onEventChanged",
                 function (id, ev) {
                     $.ajax({
@@ -178,22 +204,22 @@
                     });
                 });
 
-            scheduler.attachEvent("onEventDeleted",
-                function (id) {
-                    $.ajax({
-                        url: "api/reservationApi/delete/?=" + id,
-                        type: "DELETE",
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (response) {
-                            console.log('success !' + response);
-                            return true;
-                        },
-                        error: function () {
-                            console.log('error !' + response);
-                            return false;
-                        }
-                    });
-                });
+            //scheduler.attachEvent("onEventDeleted",
+            //    function (id) {
+            //        $.ajax({
+            //            url: "api/reservationApi/delete/?=" + id,
+            //            type: "DELETE",
+            //            contentType: 'application/json; charset=utf-8',
+            //            success: function (response) {
+            //                console.log('success !' + response);
+            //                return true;
+            //            },
+            //            error: function () {
+            //                console.log('error !' + response);
+            //                return false;
+            //            }
+            //        });
+            //    });
             scheduler.load("api/reservationApi/GetAll", "json");
         });
     </script>
