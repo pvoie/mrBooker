@@ -24,6 +24,29 @@ namespace MRBooker.Data.Repository
             return entities.AsNoTracking();
         }
 
+        /// <summary>
+        /// Used for retrieving data set with eagerly loaded properties
+        /// </summary>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public IQueryable<T> GetAll(Func<IQueryable<T>, IQueryable<T>> func)
+        {
+            IQueryable<T> resultWithEagerLoading = func(entities);
+            return resultWithEagerLoading.AsNoTracking();
+        }
+
+        /// <summary>
+        /// Used for retrieving entity with eagerly loaded properties
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public T Get(long id, Func<IQueryable<T>, IQueryable<T>> func)
+        {
+            IQueryable<T> resultWithEagerLoading = func(entities);
+            return resultWithEagerLoading.SingleOrDefault(s => s.Id == id);
+        }
+
         public T Get(long id)
         {
             return entities.SingleOrDefault(s => s.Id == id);
@@ -45,6 +68,7 @@ namespace MRBooker.Data.Repository
             {
                 throw new ArgumentNullException("Update failed: entity");
             }
+            entities.Update(entity);
             _dbContext.Entry(entity).State = EntityState.Modified;
         }
 
