@@ -13,6 +13,7 @@ namespace MRBooker.Wrappers
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly ILogger _logger;
+        private readonly IServiceProvider _serviceProvider;
 
         public ApplicationUserManager(IUserStore<T> store,
             IOptions<IdentityOptions> optionsAccessor,
@@ -27,17 +28,17 @@ namespace MRBooker.Wrappers
         {
             _dbContext = (ApplicationDbContext)services.GetService(typeof(ApplicationDbContext));
             _logger = logger;
+            _serviceProvider = services;
         }
 
         public T GetUserWithDataByName(string userName)
         {
             try
             {
-                using (_dbContext)
-                {
-                    var appUser = _dbContext.Users.Include(x => x.Reservations).FirstOrDefault(x => x.UserName == userName);
-                    return (T)(object)appUser;
-                }
+                var dbCtx = _serviceProvider.GetService(typeof(ApplicationDbContext)) as ApplicationDbContext;
+                var appUsr = dbCtx?.Users.Include(x => x.Reservations).FirstOrDefault(x => x.UserName == userName);
+
+                return (T) (object) appUsr;
             }
             catch (Exception e)
             {

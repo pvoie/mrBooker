@@ -21,8 +21,8 @@ namespace MRBooker.Data.Repository
             new ReservationMap(builder.Entity<Reservation>());
             new PlaceMap(builder.Entity<Place>());
             new RoomMap(builder.Entity<Room>());
-           
-           
+
+
             builder.Entity<ApplicationUser>().ToTable("AspNetUsers");
             builder.Entity<ApplicationUser>().HasKey(x => x.Id);
             builder.Entity<ApplicationUser>().Property(x => x.Id).IsRequired().ValueGeneratedNever();
@@ -31,11 +31,6 @@ namespace MRBooker.Data.Repository
                 .HasMany(r => r.Reservations)
                 .WithOne(u => u.User)
                 .OnDelete(DeleteBehavior.SetNull);
-
-            //builder.Entity<Room>()
-            //    .HasMany(r => r.Reservations)
-            //    .WithOne(u => u.Room)
-            //    .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using MRBooker.Data.Models.Entities;
 
 namespace MRBooker.Data.ReservationViewModels
 {
@@ -7,18 +9,15 @@ namespace MRBooker.Data.ReservationViewModels
     {
         public ICollection<string> Reservations { get; set; }
 
+        public SelectListItem RoomId { get; set; }
+
+        public SelectList Rooms { get; set; }
+
         public string JsonList { get; set; }
 
         public string ToJsonList()
         {
-            if (Reservations == null)
-            {
-                return string.Empty;
-            }
-            else
-            {
-                return JsonConvert.SerializeObject(Reservations);
-            }
+            return Reservations == null ? string.Empty : JsonConvert.SerializeObject(Reservations, Formatting.Indented);
         }
     }
 }

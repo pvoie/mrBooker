@@ -177,6 +177,7 @@ namespace MRBooker.Data.Migrations
                     Name = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: false),
                     Capacity = table.Column<int>(nullable: false),
+                    Color = table.Column<string>(nullable: false),
                     PlaceId = table.Column<long>(nullable: false),
                     AddedDate = table.Column<DateTime>(nullable: true),
                     ModifiedDate = table.Column<DateTime>(nullable: true),

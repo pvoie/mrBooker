@@ -8,6 +8,7 @@ using MRBooker.Services;
 using MRBooker.Data.Repository;
 using MRBooker.Data.Models.Entities;
 using MRBooker.Wrappers;
+using MRBooker.Data.UoW;
 
 namespace MRBooker
 {
@@ -32,9 +33,9 @@ namespace MRBooker
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            //services.AddScoped(typeof(IApplicationUserManager<>), typeof(ApplicationUserManager<>));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(ApplicationUserManager<>));
-
+            services.AddLogging().BuildServiceProvider();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

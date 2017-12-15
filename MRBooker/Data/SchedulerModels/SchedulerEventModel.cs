@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace MRBooker.Data.SchedulerModels
 {
@@ -10,18 +8,33 @@ namespace MRBooker.Data.SchedulerModels
         [DataMember(Name = "id")]
         public long Id { get; set; }
 
-        [DataMember(Name = "text")]
-        public string Text { get; set; }
+        [DataMember(Name = "title")]
+        public string Title { get; set; }
 
+        [DataMember(Name = "description")]
+        public string Description { get; set; }
+
+        [DataMember(Name = "status")]
+        public string Status { get; set; }
+        
         [DataMember(Name = "start_date")]
         public string StartDate { get; set; }
-
+        
         [DataMember(Name = "end_date")]
         public string EndDate { get; set; }
 
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.None);
-        }
+        [DataMember(Name = "type")]
+        public string TypeStr => Type.ToString();
+
+        public long Type { get; set; }
+        [DataMember(Name = "roomId")]
+        public long RoomId { get; set; }
+
+        public string UserId { get; set; }
+
+        public string IpAddress { get; set; }
+
+        [DataMember(Name = "color")]
+        public string Color { get; set; }
     }
 }

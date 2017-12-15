@@ -15,7 +15,9 @@ namespace MRBooker.Data.Models.Entities
 
         [Range(1, int.MaxValue)]
         public int Capacity { get; set; }
-        
+
+        public string Color { get; set; }
+
         public virtual ICollection<Reservation> Reservations { get; set; }
 
         [Required, ForeignKey("Place")]
