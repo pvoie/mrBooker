@@ -1,0 +1,49 @@
+$object: 'popup-modal';
+.#{$object} {
+  z-index:99999;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  opacity: 0;
+
+  &:target {
+    visibility: visible;
+    opacity: 1;
+  }
+  .message-popup {
+    top: 0;
+    margin: 70px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    width: 30%;
+    transition: all 2s ease-in-out;
+    position: absolute;
+  }
+  .message-popup h2 {
+    margin-top: 0;
+    color: #333;
+    font-family: Tahoma, Arial, sans-serif;
+  }
+  .message-popup .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+  }
+  .message-popup .close:hover {
+    color: #06D85F;
+  }
+  .message-popup .content {
+    max-height: 30%;
+    overflow: auto;
+  }
+}

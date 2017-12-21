@@ -6,6 +6,9 @@ This software is covered by GPL license. You also can obtain Commercial or Enter
 
 (c) Dinamenta, UAB.
 */
+
+// This file has been modified from the original dhtmlxScheduler v.4.4.0 Stardard
+
 window.dhtmlXScheduler = window.scheduler = { version: "4.4.0" };
 
 if (!window.dhtmlx) {
@@ -2553,13 +2556,14 @@ scheduler.set_xy=function(node,w,h,x,y){
 scheduler.get_elements=function(){
 	//get all child elements as named hash
 	var els=this._obj.getElementsByTagName("DIV");
+	// var els=this._obj.getElementsByTagName("DIV");
 	for (var i=0; i < els.length; i++){
 		var class_name= scheduler._getClassName(els[i]);
 		var attr_value = els[i].getAttribute("name") || "";
 		if (class_name) class_name = class_name.split(" ")[0];
 		if (!this._els[class_name]) this._els[class_name]=[];
 		this._els[class_name].push(els[i]);
-		
+
 		//check if name need to be changed
 		var label = scheduler.locale.labels[attr_value||class_name];
 		if (typeof label !== "string" && attr_value && !els[i].innerHTML)
@@ -7265,10 +7269,11 @@ if (window.jQuery){
 
 })( function() {
         var events = [
-            {id:1, text:"Meeting",   start_date:"04/11/2013 14:00",end_date:"04/11/2013 17:00"},
-            {id:2, text:"Conference",start_date:"04/15/2013 12:00",end_date:"04/18/2013 19:00"},
-            {id:3, text:"Interview", start_date:"04/24/2013 09:00",end_date:"04/24/2013 10:00"}
+            {id:1, text:"Meeting",   start_date:"04/11/2017 14:00",end_date:"04/11/2017 17:00"},
+            {id:2, text:"Conference",start_date:"04/15/2017 12:00",end_date:"04/18/2017 19:00"},
+            {id:3, text:"Interview", start_date:"04/24/2017 09:00",end_date:"04/24/2017 10:00"}
         ];
+
         scheduler.init("scheduler_here", new Date(), "month");
         scheduler.parse(events, "json");
     }()

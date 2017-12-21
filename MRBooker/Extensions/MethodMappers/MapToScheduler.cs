@@ -19,7 +19,8 @@ namespace MRBooker.Extensions.MethodMappers
                 Status = model.Status,
                 StartDate = model.Start.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
                 EndDate = model.End.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
-                Color = model.Room.Color
+                Color = model.Room.Color,
+                RoomId = model.RoomId
             };
 
             return reservation;
@@ -35,6 +36,30 @@ namespace MRBooker.Extensions.MethodMappers
                 result.Add(item.ToSchedulerModel());
             }
            
+            return result;
+        }
+
+        public static SchedulerRoomModel ToSchedulerRoomModel(this Room model)
+        {
+            if (model == null) return null;
+            var room = new SchedulerRoomModel
+            {
+                Id = model.Id,
+                Name = model.Name
+            };
+            return room;
+        }
+
+        public static IEnumerable<SchedulerRoomModel> ToSchedulerRoomModelList(this IEnumerable<Room> model)
+        {
+            if (model == null) return null;
+
+            var result = new List<SchedulerRoomModel>();
+            foreach (var item in model)
+            {
+                result.Add(item.ToSchedulerRoomModel());
+            }
+
             return result;
         }
     }

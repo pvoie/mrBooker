@@ -23,10 +23,6 @@ namespace MRBooker.Data.SchedulerModels
         [DataMember(Name = "end_date")]
         public string EndDate { get; set; }
 
-        [DataMember(Name = "type")]
-        public string TypeStr => Type.ToString();
-
-        public long Type { get; set; }
         [DataMember(Name = "roomId")]
         public long RoomId { get; set; }
 
