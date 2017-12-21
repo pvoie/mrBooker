@@ -25,6 +25,9 @@
             <thead>
                 <tr>
                     <th>
+                        @Html.DisplayNameFor(model => model.First().Id)
+                    </th>
+                    <th>
                         <a asp-controller="Place" asp-action="Index" asp-route-sortOrder="@ViewData["CountrySortParm"]">@Html.DisplayNameFor(model => model.First().Country)</a>
                     </th>
                     <th>
@@ -46,6 +49,9 @@
                 @foreach (var item in Model)
                 {
                     <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Country)
                         </td>
