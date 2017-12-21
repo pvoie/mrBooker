@@ -27,7 +27,7 @@ namespace MRBooker.Controllers
             IEmailSender emailSender,
             ILogger<AccountController> logger)
         {
-               _userManager = userManager;
+            _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
@@ -226,9 +226,7 @@ namespace MRBooker.Controllers
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    _logger.LogInformation("User created a new account with password.");
-                    return RedirectToLocal(returnUrl);
+                    return View("CheckEmail");
                 }
                 AddErrors(result);
             }
