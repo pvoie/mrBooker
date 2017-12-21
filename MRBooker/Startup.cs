@@ -9,6 +9,13 @@ using MRBooker.Data.Repository;
 using MRBooker.Data.Models.Entities;
 using MRBooker.Wrappers;
 using MRBooker.Data.UoW;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System.Threading.Tasks;
+using System;
+using Microsoft.EntityFrameworkCore.Design;
+using System.IO;
+using Microsoft.Extensions.Logging;
+using MRBooker.Services;
 
 namespace MRBooker
 {
@@ -24,14 +31,21 @@ namespace MRBooker
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
-
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddIdentity<ApplicationUser, IdentityRole>(config =>
+            {
+                config.SignIn.RequireConfirmedEmail = true;
+            })
+            .AddUserStore<UserStore<ApplicationUser, IdentityRole, ApplicationDbContext, string>>()
+            .AddRoleStore<RoleStore<IdentityRole, ApplicationDbContext, string>>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
+
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(ApplicationUserManager<>));
@@ -62,6 +76,67 @@ namespace MRBooker
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            var serviceProvider = app.ApplicationServices.GetService<IServiceProvider>();
+            CreateRoles(serviceProvider).Wait();
         }
+
+        private async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+            string[] roleNames = { "Admin" };
+            IdentityResult roleResult;
+
+            foreach (var roleName in roleNames)
+            {
+                var roleExist = await RoleManager.RoleExistsAsync(roleName);
+                if (!roleExist)
+                {
+                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+                }
+            }
+
+            var poweruser = new ApplicationUser
+            {
+                UserName = Configuration.GetSection("UserSettings")["UserEmail"],
+                Email = Configuration.GetSection("UserSettings")["UserEmail"]
+            };
+
+            string userPWD = Configuration.GetSection("UserSettings")["UserPassword"];
+            var _user = await UserManager.FindByEmailAsync(poweruser.UserName);
+            if (_user == null)
+            {
+                var createPowerUser = await UserManager.CreateAsync(poweruser, userPWD);
+                
+                if (createPowerUser.Succeeded)
+                {
+                    await UserManager.AddToRoleAsync(poweruser, "Admin");
+
+                    // we need to confirm the email in order for the user to sign in
+                    var code = UserManager.GenerateEmailConfirmationTokenAsync(poweruser).Result;
+                    await UserManager.ConfirmEmailAsync(poweruser, code);
+                }
+            }
+        }
+    }
+}
+
+/// <summary>
+/// We need this class in order build a new instance of the ApplicationDbContext
+/// </summary>
+public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
+{
+    public ApplicationDbContext CreateDbContext(string[] args)
+    {
+        IConfigurationRoot configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json")
+            .Build();
+        var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
+        builder.UseSqlServer(connectionString);
+        return new ApplicationDbContext(builder.Options);
     }
 }
