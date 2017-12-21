@@ -32,25 +32,20 @@ namespace MRBooker.Controllers
             var rooms = _unitOfWork.RoomRepository.GetAll().ToList();
             rooms.Insert(0, new Room {Id = 0, Name = "All Rooms"});
             model.Rooms = new SelectList(rooms, "Id", "Name");
-            
-            if (User.Identity.IsAuthenticated)
-            {
-                
-            }
 
             return View(model);
         }
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "Application handles the reservation of meeting rooms.";
 
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "Booker contact page.";
 
             return View();
         }
