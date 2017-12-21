@@ -45,7 +45,7 @@ namespace MRBooker.Controllers
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Booker contact page.";
+            ViewData["Message"] = "You can contact us here:";
 
             return View();
         }
