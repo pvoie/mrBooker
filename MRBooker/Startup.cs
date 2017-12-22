@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using System.IO;
 using Microsoft.Extensions.Logging;
 using MRBooker.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace MRBooker
 {
@@ -34,6 +35,17 @@ namespace MRBooker
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                // Cookie settings
+                options.Cookie.HttpOnly = true;
+                options.Cookie.Expiration = TimeSpan.FromDays(150);
+                options.LoginPath = "/Account/Login";
+                options.LogoutPath = "/Account/Logout";
+                options.AccessDeniedPath = "/Account/AccessDenied";
+                options.SlidingExpiration = true;
+            });
+
             services.AddMvc();
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -50,6 +62,13 @@ namespace MRBooker
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(ApplicationUserManager<>));
             services.AddLogging().BuildServiceProvider();
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    options.ClientId = "483351919308-udpv02psaumoimmd5mpcp10m0m3eos88.apps.googleusercontent.com";
+                    options.ClientSecret = "c-kH-NM7ir4ZT_P1zIavM1q0";
+                    options.CallbackPath = new PathString("/signin-google");
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -109,7 +128,7 @@ namespace MRBooker
             if (_user == null)
             {
                 var createPowerUser = await UserManager.CreateAsync(poweruser, userPWD);
-                
+
                 if (createPowerUser.Succeeded)
                 {
                     await UserManager.AddToRoleAsync(poweruser, "Admin");
