@@ -28,6 +28,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\js\Scheduler.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MRBooker.Data\MRBooker.Data.csproj" />
   </ItemGroup>
 

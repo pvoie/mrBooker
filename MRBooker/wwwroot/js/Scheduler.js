@@ -97,12 +97,14 @@
                     type: "POST",
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(ev),
-                    success: function() {
+                    success: function () {
                         dhtmlx.message({
                             title: "Reservation",
                             type: "alert-warning",
                             text: "Reservation has been saved.",
                             callback: function () {
+                                scheduler.clearAll();
+                                scheduler.load("api/reservationApi/GetReservationByRoom/?roomId=" + $('#roomId').val(), "json");
                                 scheduler.endLightbox(false, $('.dhx_cal_light').get(0));
                             }
                         });
