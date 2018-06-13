@@ -44,5 +44,17 @@
     "inputFiles": [
       "wwwroot/js/Scheduler.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/css/bootstrap-colorpicker.css",
+    "inputFiles": [
+      "wwwroot/lib/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/bootstrap-colorpicker.js",
+    "inputFiles": [
+      "wwwroot/lib/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.js"
+    ]
   }
 ]

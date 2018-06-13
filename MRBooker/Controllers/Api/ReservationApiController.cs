@@ -176,7 +176,7 @@ namespace MRBooker.Controllers.Api
             try
             {
                 var validator = new SchedulerEventValidation(_unitOfWork);
-                if (validator.IsValidSchedulerEventModel(model))
+                if (!validator.IsValidSchedulerEventModel(model))
                 {
                     return new StatusCodeResult(StatusCodes.Status500InternalServerError);
                 }
