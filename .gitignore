@@ -9,3 +9,4 @@
 /.vs
 MRBooker/Logs
 MRBooker/wwwroot/
+/MRBooker.Tests/obj
