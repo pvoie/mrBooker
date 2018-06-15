@@ -8,6 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using MRBooker.Data.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
 using MRBooker.Wrappers;
+using MRBooker.Extensions.DtoMappers;
+using MRBooker.Business.Models.Room;
+using System.Collections.Generic;
+using MRBooker.Business.Models.Place;
 
 namespace MRBooker.Controllers
 {
@@ -70,16 +74,30 @@ namespace MRBooker.Controllers
         // GET: Room/Details/5
         public ActionResult Details(int id)
         {
-            var room = _unitOfWork.RoomRepository.GetAll().FirstOrDefault(x => x.Id == id);
+            var room = _unitOfWork.RoomRepository.GetAll().Include(x => x.Place).FirstOrDefault(x => x.Id == id);
 
-            return View(room);
+            return View(room.ToRoomDetailsDto());
         }
 
 
         // GET: Room/Create
         public ActionResult Create()
         {
-            return View();
+            var roomCreateDto = new RoomDto();
+
+            var places = _unitOfWork.PlaceRepository.GetAll().Include(p => p.Rooms).AsQueryable();
+
+            if (places != null && places.Any())
+            {
+                roomCreateDto.Places = new List<PlaceDto>();
+
+                foreach (var place in places)
+                {
+                    roomCreateDto.Places.Add(place.ToPlaceDto());
+                }
+            }
+
+            return View(roomCreateDto);
         }
 
         // POST: Room/Create
@@ -113,8 +131,20 @@ namespace MRBooker.Controllers
         // GET: Room/Edit/5
         public ActionResult Edit(int id)
         {
-            var room = _unitOfWork.RoomRepository.GetAll().FirstOrDefault(x => x.Id == id);
-            return View(room);
+            var room = _unitOfWork.RoomRepository.GetAll().Include(x => x.Place).FirstOrDefault(x => x.Id == id);
+            var places = _unitOfWork.PlaceRepository.GetAll();
+            var roomDto = room.ToRoomDto();
+            roomDto.Places = new List<PlaceDto>();
+
+            if (places != null)
+            {
+                foreach (var place in places)
+                {
+                    roomDto.Places.Add(place.ToPlaceDto());
+                }
+            }
+
+            return View(roomDto);
         }
 
         // POST: Room/Edit/5

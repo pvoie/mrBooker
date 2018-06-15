@@ -15,18 +15,21 @@ namespace MRBooker.Data.Models.Entities
             set;
         }
 
+        [Display(Name = "Added Date")]
         public DateTime AddedDate
         {
             get;
             set;
         }
 
+        [Display(Name = "Modified Date")]
         public DateTime ModifiedDate
         {
             get;
             set;
         }
 
+        [Display(Name = "IP Address")]
         public string IPAddress
         {
             get;

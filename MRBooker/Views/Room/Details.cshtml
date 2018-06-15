@@ -1,4 +1,4 @@
-﻿@model MRBooker.Data.Models.Entities.Room
+﻿@model RoomDetailsDto
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -33,10 +33,10 @@
             @Html.DisplayFor(model => model.Color)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.PlaceId)
+            @Html.DisplayNameFor(model => model.PlaceDetails)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.PlaceId)
+            @Html.DisplayFor(model => model.PlaceDetails)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.AddedDate)
@@ -51,10 +51,10 @@
             @Html.DisplayFor(model => model.ModifiedDate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.IPAddress)
+            @Html.DisplayNameFor(model => model.IpAddress)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.IPAddress)
+            @Html.DisplayFor(model => model.IpAddress)
         </dd>
     </dl>
 </div>
