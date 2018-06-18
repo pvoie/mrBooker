@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MRBooker", "MRBooker\MRBook
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MRBooker.Data", "MRBooker.Data\MRBooker.Data.csproj", "{815D094F-9346-4770-BFBD-5F53C9BA4B5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MRBooker.Tests", "MRBooker.Tests\MRBooker.Tests.csproj", "{0DBC5033-8F1C-49E4-AFDB-826E1E8409DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MRBooker.Tests", "MRBooker.Tests\MRBooker.Tests.csproj", "{7C22A70F-A4CE-4D0C-B010-28C6707DB4DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{815D094F-9346-4770-BFBD-5F53C9BA4B5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{815D094F-9346-4770-BFBD-5F53C9BA4B5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{815D094F-9346-4770-BFBD-5F53C9BA4B5E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0DBC5033-8F1C-49E4-AFDB-826E1E8409DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0DBC5033-8F1C-49E4-AFDB-826E1E8409DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0DBC5033-8F1C-49E4-AFDB-826E1E8409DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0DBC5033-8F1C-49E4-AFDB-826E1E8409DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C22A70F-A4CE-4D0C-B010-28C6707DB4DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C22A70F-A4CE-4D0C-B010-28C6707DB4DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C22A70F-A4CE-4D0C-B010-28C6707DB4DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C22A70F-A4CE-4D0C-B010-28C6707DB4DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
