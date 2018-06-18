@@ -54,8 +54,8 @@ namespace MRBooker.Extensions.Validation
         {
             bool isOverlappingWithOtherReservation = false;
 
-            var a = modelStartDate >= reservation.Start && modelStartDate <= reservation.End;
-            var b = modelEndDate >= reservation.Start && modelEndDate <= reservation.End;
+            var a = modelStartDate >= reservation.Start && modelStartDate < reservation.End;
+            var b = modelEndDate > reservation.Start && modelEndDate <= reservation.End;
 
             if (a || b) isOverlappingWithOtherReservation = true;
 

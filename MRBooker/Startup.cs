@@ -14,8 +14,6 @@ using System.Threading.Tasks;
 using System;
 using Microsoft.EntityFrameworkCore.Design;
 using System.IO;
-using Microsoft.Extensions.Logging;
-using MRBooker.Services;
 using Microsoft.AspNetCore.Http;
 
 namespace MRBooker
