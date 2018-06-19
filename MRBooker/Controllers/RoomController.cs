@@ -134,15 +134,19 @@ namespace MRBooker.Controllers
             var room = _unitOfWork.RoomRepository.GetAll().Include(x => x.Place).FirstOrDefault(x => x.Id == id);
             var places = _unitOfWork.PlaceRepository.GetAll();
             var roomDto = room.ToRoomDto();
-            roomDto.Places = new List<PlaceDto>();
-
-            if (places != null)
+            if (roomDto != null)
             {
-                foreach (var place in places)
+                roomDto.Places = new List<PlaceDto>();
+
+                if (places != null)
                 {
-                    roomDto.Places.Add(place.ToPlaceDto());
+                    foreach (var place in places)
+                    {
+                        roomDto.Places.Add(place.ToPlaceDto());
+                    }
                 }
             }
+            
 
             return View(roomDto);
         }
@@ -154,7 +158,7 @@ namespace MRBooker.Controllers
         {
             try
             {
-                var room = _unitOfWork.RoomRepository.GetAll().FirstOrDefault(x => x.Id == id);
+                var room = _unitOfWork.RoomRepository.Get(id);
                 room.Name = collection["Name"];
                 room.PlaceId = Convert.ToInt64(collection["PlaceId"]);
                 room.Color = collection["Color"];
@@ -179,7 +183,7 @@ namespace MRBooker.Controllers
         {
             try
             {
-                var room = _unitOfWork.RoomRepository.GetAll().FirstOrDefault(x => x.Id == id);
+                var room = _unitOfWork.RoomRepository.Get(id);
                 _unitOfWork.RoomRepository.Delete(room);
                 _unitOfWork.Save();
 
