@@ -1,8 +1,5 @@
 using System;
-using System.Globalization;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MRBooker.Data.Models.Entities;
@@ -11,10 +8,13 @@ using MRBooker.Extensions.MethodMappers;
 using Microsoft.Extensions.Logging;
 using MRBooker.Data.UoW;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Azure.KeyVault.Models;
 using Microsoft.EntityFrameworkCore;
 using MRBooker.Extensions.Validation;
 using MRBooker.Wrappers;
+using MRBooker.Services.Notifier.Events;
+using Microsoft.AspNetCore.SignalR;
+using MRBooker.Services.Notifier.Hubs;
+using System.Threading.Tasks;
 
 namespace MRBooker.Controllers.Api
 {
@@ -25,14 +25,17 @@ namespace MRBooker.Controllers.Api
         private readonly ApplicationUserManager<ApplicationUser> _userManager;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<ReservationApiController> _logger;
+        private readonly IHubContext<ReservationHub> _hubContext;
 
         public ReservationApiController(IUnitOfWork unitOfWork,
             ApplicationUserManager<ApplicationUser> userManager,
-            ILogger<ReservationApiController> logger)
+            ILogger<ReservationApiController> logger,
+            IHubContext<ReservationHub> hubContext)
         {
             _logger = logger;
             _userManager = userManager;
             _unitOfWork = unitOfWork;
+            _hubContext = hubContext;
         }
 
         /// <summary>
@@ -220,7 +223,7 @@ namespace MRBooker.Controllers.Api
         /// <returns>Status Code Result</returns>
         [HttpPut(Name = "Update")]
         [Route("Update")]
-        public StatusCodeResult Update([FromBody] SchedulerEventModel model)
+        public async Task<StatusCodeResult> Update([FromBody] SchedulerEventModel model)
         {
             try
             {
@@ -229,7 +232,7 @@ namespace MRBooker.Controllers.Api
                 {
                     return new StatusCodeResult(StatusCodes.Status500InternalServerError);
                 }
-                var reservation = _unitOfWork.ReservationRepository.Get(model.Id);
+                var reservation = _unitOfWork.ReservationRepository.GetAll().Include(x => x.Room).FirstOrDefault(x=> x.Id == model.Id);
                 if (reservation == null)
                     return new StatusCodeResult(StatusCodes.Status404NotFound);
 
@@ -244,6 +247,9 @@ namespace MRBooker.Controllers.Api
 
                 _unitOfWork.ReservationRepository.Update(reservation);
                 _unitOfWork.Save();
+
+                var message = $"Reservation titled: {reservation.Title} {Environment.NewLine} from {reservation.Start.ToString("dd/MMM/yy HH:mm")} to {reservation.End.ToString("dd/MMM/yy HH:mm")} {Environment.NewLine} on room {reservation.Room.Name} has changed !";
+                await _hubContext.Clients.All.SendAsync("ReservationChanged", message);
 
                 return new StatusCodeResult(StatusCodes.Status200OK);
             }

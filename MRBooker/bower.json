@@ -8,7 +8,8 @@
     "bootstrap": "~3.3.7",
     "popper.js": "v1.12.5",
     "scheduler": "v4.4.0",
-    "bootstrap-colorpicker": "mjolnic-bootstrap-colorpicker#2.5.2"
+    "bootstrap-colorpicker": "mjolnic-bootstrap-colorpicker#2.5.2",
+    "notifyjs": "v0.4.2"
   },
   "resolutions": {
     "jquery": "1.9.1 - 3",

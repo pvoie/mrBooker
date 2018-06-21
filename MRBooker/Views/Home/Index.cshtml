@@ -38,11 +38,21 @@
     </div>
 </div>
 
-@*<style type="text/css" media="screen">
-        html, body {
-            margin: 0px;
-            padding: 0px;
-            height: 100%;
-            overflow: hidden;
-        }
-    </style>*@
+@section Scripts
+    {
+    <script type="text/javascript">
+        var connection = new signalR.HubConnectionBuilder()
+            .withUrl("/hubs/reservation")
+            .configureLogging(signalR.LogLevel.Information)
+            .build();
+        connection.on("ReservationChanged", (message) => {
+            $.notify(message,
+                {
+                    position: "top-left",
+                    className: "info",
+                    autoHideDelay: 10000
+                });
+        });
+        connection.start();
+    </script>
+}

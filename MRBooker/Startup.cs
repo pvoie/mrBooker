@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿.using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
@@ -15,6 +15,9 @@ using System;
 using Microsoft.EntityFrameworkCore.Design;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using MRBooker.Services.Notifier.Hubs;
+using MRBooker.Services.Notifier.Events;
+using MRBooker.Controllers.Api;
 
 namespace MRBooker
 {
@@ -43,6 +46,8 @@ namespace MRBooker
                 options.AccessDeniedPath = "/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });
+
+            services.AddSignalR();
 
             services.AddMvc();
 
@@ -86,6 +91,11 @@ namespace MRBooker
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ReservationHub>("/hubs/reservation");
+            });
 
             app.UseMvc(routes =>
             {
