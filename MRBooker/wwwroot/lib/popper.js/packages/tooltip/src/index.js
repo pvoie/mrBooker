@@ -19,7 +19,7 @@ export default class Tooltip {
    * @class Tooltip
    * @param {HTMLElement} reference - The DOM node used as reference of the tooltip (it can be a jQuery element).
    * @param {Object} options
-   * @param {String} options.placement=bottom
+   * @param {String|PlacementFunction} options.placement=top
    *      Placement of the popper accepted values: `top(-start, -end), right(-start, -end), bottom(-start, -end),
    *      left(-start, -end)`
    * @param {HTMLElement|String|false} options.container=false - Append the tooltip to a specific element.
@@ -27,7 +27,7 @@ export default class Tooltip {
    *      Delay showing and hiding the tooltip (ms) - does not apply to manual trigger type.
    *      If a number is supplied, delay is applied to both hide/show.
    *      Object structure is: `{ show: 500, hide: 100 }`
-   * @param {Boolean} options.html=false - Insert HTML into the tooltip. If false, the content will inserted with `innerText`.
+   * @param {Boolean} options.html=false - Insert HTML into the tooltip. If false, the content will inserted with `textContent`.
    * @param {String|PlacementFunction} options.placement='top' - One of the allowed placements, or a function returning one of them.
    * @param {String} [options.template='<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>']
    *      Base HTML to used when creating the tooltip.
@@ -38,7 +38,7 @@ export default class Tooltip {
    * @param {String} [options.trigger='hover focus']
    *      How tooltip is triggered - click, hover, focus, manual.
    *      You may pass multiple triggers; separate them with a space. `manual` cannot be combined with any other trigger.
-   * @param {HTMLElement} options.boundariesElement
+   * @param {String|HTMLElement} options.boundariesElement
    *      The element used as boundaries for the tooltip. For more information refer to Popper.js'
    *      [boundariesElement docs](https://popper.js.org/popper-documentation.html)
    * @param {Number|String} options.offset=0 - Offset of the tooltip relative to its reference. For more information refer to Popper.js'
@@ -58,16 +58,18 @@ export default class Tooltip {
     this.options = options;
 
     // get events list
-    const events = typeof options.trigger === 'string'
-      ? options.trigger
-          .split(' ')
-          .filter(
-            trigger => ['click', 'hover', 'focus'].indexOf(trigger) !== -1
-          )
-      : [];
+    const events =
+      typeof options.trigger === 'string'
+        ? options.trigger
+            .split(' ')
+            .filter(
+              trigger => ['click', 'hover', 'focus'].indexOf(trigger) !== -1
+            )
+        : [];
 
     // set initial state
     this._isOpen = false;
+    this._popperOptions = {};
 
     // set event listeners
     this._setEventListeners(reference, events, options);
@@ -112,6 +114,14 @@ export default class Tooltip {
     }
   };
 
+  /**
+   * Updates the tooltip's title content
+   * @method Tooltip#updateTitleContent
+   * @memberof Tooltip
+   * @param {String|HTMLElement} title - The new content to use for the title
+   */
+  updateTitleContent = (title) => this._updateTitleContent(title);
+
   //
   // Defaults
   //
@@ -132,7 +142,7 @@ export default class Tooltip {
    * @param {String} template
    * @param {String|HTMLElement|TitleFunction} title
    * @param {Boolean} allowHtml
-   * @return {HTMLelement} tooltipNode
+   * @return {HTMLElement} tooltipNode
    */
   _create(reference, template, title, allowHtml) {
     // create tooltip element
@@ -141,34 +151,41 @@ export default class Tooltip {
     const tooltipNode = tooltipGenerator.childNodes[0];
 
     // add unique ID to our tooltip (needed for accessibility reasons)
-    tooltipNode.id = `tooltip_${Math.random().toString(36).substr(2, 10)}`;
+    tooltipNode.id = `tooltip_${Math.random()
+      .toString(36)
+      .substr(2, 10)}`;
 
     // set initial `aria-hidden` state to `false` (it's visible!)
     tooltipNode.setAttribute('aria-hidden', 'false');
 
     // add title to tooltip
     const titleNode = tooltipGenerator.querySelector(this.innerSelector);
-    if (title.nodeType === 1) {
-      // if title is a node, append it only if allowHtml is true
-      allowHtml && titleNode.appendChild(title);
-    } else if (isFunction(title)) {
-      // if title is a function, call it and set innerText or innerHtml depending by `allowHtml` value
-      const titleText = title.call(reference);
-      allowHtml
-        ? (titleNode.innerHTML = titleText)
-        : (titleNode.innerText = titleText);
-    } else {
-      // if it's just a simple text, set innerText or innerHtml depending by `allowHtml` value
-      allowHtml ? (titleNode.innerHTML = title) : (titleNode.innerText = title);
-    }
+    this._addTitleContent(reference, title, allowHtml, titleNode);
 
     // return the generated tooltip node
     return tooltipNode;
   }
 
+  _addTitleContent(reference, title, allowHtml, titleNode) {
+    if (title.nodeType === 1 || title.nodeType === 11) {
+      // if title is a element node or document fragment, append it only if allowHtml is true
+      allowHtml && titleNode.appendChild(title);
+    } else if (isFunction(title)) {
+      // if title is a function, call it and set textContent or innerHtml depending by `allowHtml` value
+      const titleText = title.call(reference);
+      allowHtml
+        ? (titleNode.innerHTML = titleText)
+        : (titleNode.textContent = titleText);
+    } else {
+      // if it's just a simple text, set textContent or innerHtml depending by `allowHtml` value
+      allowHtml ? (titleNode.innerHTML = title) : (titleNode.textContent = title);
+    }
+  }
+
   _show(reference, options) {
     // don't show if it's already visible
-    if (this._isOpen) {
+    // or if it's not being showed
+    if (this._isOpen && !this._isOpening) {
       return this;
     }
     this._isOpen = true;
@@ -205,25 +222,32 @@ export default class Tooltip {
 
     this._append(tooltipNode, container);
 
-    const popperOptions = {
+    this._popperOptions = {
       ...options.popperOptions,
       placement: options.placement,
-    }
+    };
 
-    popperOptions.modifiers = {
-      ...popperOptions.modifiers,
+    this._popperOptions.modifiers = {
+      ...this._popperOptions.modifiers,
       arrow: {
         element: this.arrowSelector,
       },
-    }
+      offset: {
+        offset: options.offset,
+      },
+    };
 
     if (options.boundariesElement) {
-      popperOptions.modifiers.preventOverflow = {
+      this._popperOptions.modifiers.preventOverflow = {
         boundariesElement: options.boundariesElement,
       };
     }
 
-    this.popperInstance = new Popper(reference, tooltipNode, popperOptions);
+    this.popperInstance = new Popper(
+      reference,
+      tooltipNode,
+      this._popperOptions
+    );
 
     this._tooltipNode = tooltipNode;
 
@@ -246,21 +270,23 @@ export default class Tooltip {
   }
 
   _dispose() {
+    // remove event listeners first to prevent any unexpected behaviour
+    this._events.forEach(({ func, event }) => {
+      this.reference.removeEventListener(event, func);
+    });
+    this._events = [];
+
     if (this._tooltipNode) {
       this._hide();
 
       // destroy instance
       this.popperInstance.destroy();
 
-      // remove event listeners
-      this._events.forEach(({ func, event }) => {
-        this.reference.removeEventListener(event, func);
-      });
-      this._events = [];
-
-      // destroy tooltipNode
-      this._tooltipNode.parentNode.removeChild(this._tooltipNode);
-      this._tooltipNode = null;
+      // destroy tooltipNode if removeOnDestroy is not set, as popperInstance.destroy() already removes the element
+      if (!this.popperInstance.options.removeOnDestroy) {
+        this._tooltipNode.parentNode.removeChild(this._tooltipNode);
+        this._tooltipNode = null;
+      }
     }
     return this;
   }
@@ -280,7 +306,7 @@ export default class Tooltip {
    * Append tooltip to container
    * @memberof Tooltip
    * @private
-   * @param {HTMLElement} tooltip
+   * @param {HTMLElement} tooltipNode
    * @param {HTMLElement|String|false} container
    */
   _append(tooltipNode, container) {
@@ -311,7 +337,7 @@ export default class Tooltip {
     // schedule show tooltip
     directEvents.forEach(event => {
       const func = evt => {
-        if (this._isOpen === true) {
+        if (this._isOpening === true) {
           return;
         }
         evt.usedByTooltip = true;
@@ -335,15 +361,21 @@ export default class Tooltip {
   }
 
   _scheduleShow(reference, delay, options /*, evt */) {
+    this._isOpening = true;
     // defaults to 0
     const computedDelay = (delay && delay.show) || delay || 0;
-    window.setTimeout(() => this._show(reference, options), computedDelay);
+    this._showTimeout = window.setTimeout(
+      () => this._show(reference, options),
+      computedDelay
+    );
   }
 
   _scheduleHide(reference, delay, options, evt) {
+    this._isOpening = false;
     // defaults to 0
     const computedDelay = (delay && delay.hide) || delay || 0;
     window.setTimeout(() => {
+      window.clearTimeout(this._showTimeout);
       if (this._isOpen === false) {
         return;
       }
@@ -368,10 +400,12 @@ export default class Tooltip {
   }
 
   _setTooltipNodeEvent = (evt, reference, delay, options) => {
-    const relatedreference = evt.relatedreference || evt.toElement;
+    const relatedreference =
+      evt.relatedreference || evt.toElement || evt.relatedTarget;
 
     const callback = evt2 => {
-      const relatedreference2 = evt2.relatedreference || evt2.toElement;
+      const relatedreference2 =
+        evt2.relatedreference || evt2.toElement || evt2.relatedTarget;
 
       // Remove event listener after call
       this._tooltipNode.removeEventListener(evt.type, callback);
@@ -391,6 +425,29 @@ export default class Tooltip {
 
     return false;
   };
+  
+  _updateTitleContent(title) {
+    if(typeof this._tooltipNode === 'undefined') {
+      if(typeof this.options.title !== 'undefined') {
+        this.options.title = title;
+      }
+      return;
+    }
+    const titleNode = this._tooltipNode.parentNode.querySelector(this.innerSelector);    
+    this._clearTitleContent(titleNode, this.options.html, this.reference.getAttribute('title') || this.options.title)
+    this._addTitleContent(this.reference, title, this.options.html, titleNode);
+    this.options.title = title;
+    this.popperInstance.update();
+  }
+
+  _clearTitleContent(titleNode, allowHtml, lastTitle) {
+    if(lastTitle.nodeType === 1 || lastTitle.nodeType === 11) {
+      allowHtml && titleNode.removeChild(lastTitle);
+    } else {
+      allowHtml ? titleNode.innerHTML = '' : titleNode.textContent = '';
+    }
+  }
+
 }
 
 /**

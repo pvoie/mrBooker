@@ -5,6 +5,7 @@ import getOffsetRectRelativeToArbitraryNode from './getOffsetRectRelativeToArbit
 import getViewportOffsetRectRelativeToArtbitraryNode from './getViewportOffsetRectRelativeToArtbitraryNode';
 import getWindowSizes from './getWindowSizes';
 import isFixed from './isFixed';
+import getFixedPositionOffsetParent from './getFixedPositionOffsetParent';
 
 /**
  * Computed the boundaries limits and return them
@@ -14,38 +15,44 @@ import isFixed from './isFixed';
  * @param {HTMLElement} reference
  * @param {number} padding
  * @param {HTMLElement} boundariesElement - Element used to define the boundaries
+ * @param {Boolean} fixedPosition - Is in fixed position mode
  * @returns {Object} Coordinates of the boundaries
  */
 export default function getBoundaries(
   popper,
   reference,
   padding,
-  boundariesElement
+  boundariesElement,
+  fixedPosition = false
 ) {
   // NOTE: 1 DOM access here
+
   let boundaries = { top: 0, left: 0 };
-  const offsetParent = findCommonOffsetParent(popper, reference);
+  const offsetParent = fixedPosition ? getFixedPositionOffsetParent(popper) : findCommonOffsetParent(popper, reference);
 
   // Handle viewport case
-  if (boundariesElement === 'viewport') {
-    boundaries = getViewportOffsetRectRelativeToArtbitraryNode(offsetParent);
-  } else {
+  if (boundariesElement === 'viewport' ) {
+    boundaries = getViewportOffsetRectRelativeToArtbitraryNode(offsetParent, fixedPosition);
+  }
+
+  else {
     // Handle other cases based on DOM element used as boundaries
     let boundariesNode;
     if (boundariesElement === 'scrollParent') {
-      boundariesNode = getScrollParent(getParentNode(popper));
+      boundariesNode = getScrollParent(getParentNode(reference));
       if (boundariesNode.nodeName === 'BODY') {
-        boundariesNode = window.document.documentElement;
+        boundariesNode = popper.ownerDocument.documentElement;
       }
     } else if (boundariesElement === 'window') {
-      boundariesNode = window.document.documentElement;
+      boundariesNode = popper.ownerDocument.documentElement;
     } else {
       boundariesNode = boundariesElement;
     }
 
     const offsets = getOffsetRectRelativeToArbitraryNode(
       boundariesNode,
-      offsetParent
+      offsetParent,
+      fixedPosition
     );
 
     // In case of HTML, we need a different computation
