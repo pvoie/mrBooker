@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using MRBooker.Extensions.Validation;
 using MRBooker.Wrappers;
-using MRBooker.Services.Notifier.Events;
 using Microsoft.AspNetCore.SignalR;
 using MRBooker.Services.Notifier.Hubs;
 using System.Threading.Tasks;
