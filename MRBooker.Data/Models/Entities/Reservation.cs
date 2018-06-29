@@ -22,6 +22,9 @@ namespace MRBooker.Data.Models.Entities
         [Required]
         public DateTime End { get; set; }
 
+        [MaxLength(100)]
+        public string Location { get; set; }
+
         [MaxLength(450)]
         [ForeignKey("User")]
         public string UserId { get; set; }
